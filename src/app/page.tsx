@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import LoadingScreen from '@/app/components/LoadingScreen';
+import LoadingScreen from '@/app/components/loadingscreen/LoadingScreen';
 import { motion, AnimatePresence } from 'framer-motion';
 import NavCard from '@/app/components/NavCard';
 import '@/app/styles/fonts.css';
@@ -59,7 +59,7 @@ export default function HomePage() {
             }}
           >
             <div className="flex flex-wrap justify-center gap-0.5 md:gap-1 font-logo tracking-tighter">
-              {'Awwwry'.split('').map((letter, i) => (
+              {'AWWWRY'.split('').map((letter, i) => (
                 <motion.span
                   key={i}
                   className="inline-block text-4xl md:text-6xl font-black text-purple-900 drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)]"

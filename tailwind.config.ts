@@ -17,7 +17,8 @@ export default {
         'soft-blue': '#B8E0D2',
       },
       fontFamily: {
-        custom: ['BILLO', 'sans-serif'], // Añade tu fuente personalizada
+        logo: ['var(--fuente-logo)', 'cursive', 'sans-serif'],
+        custom: ['var(--fuente-logo)', 'sans-serif'],
       },
     },
   },

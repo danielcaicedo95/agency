@@ -1,0 +1,256 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useMemo } from 'react';
+
+interface Building {
+  id: number;
+  x: number;
+  width: number;
+  height: number;
+  color: string;
+  windows: { wx: number; wy: number; isFlickering: boolean; blinkDelay: number }[];
+  delay: number;
+  hasAntenna: boolean;
+}
+
+export default function CityAnimation() {
+  const buildings = useMemo<Building[]>(() => {
+    const colors = [
+      '#3b0764', '#4c1d95', '#581c87', '#6b21a8',
+      '#312e81', '#1e1b4b', '#4338ca', '#5b21b6',
+      '#2e1065', '#4f46e5', '#3730a3', '#6d28d9',
+    ];
+
+    const bldgs: Building[] = [];
+    let xPos = 0;
+    let id = 0;
+
+    while (xPos < 1400) {
+      const w = 35 + Math.floor((id * 37 + 13) % 55);
+      const h = 100 + Math.floor((id * 73 + 29) % 240);
+      const gap = 3 + Math.floor((id * 11) % 6);
+      const color = colors[id % colors.length];
+      const hasAntenna = id % 3 === 0;
+
+      const windows: { wx: number; wy: number; isFlickering: boolean; blinkDelay: number }[] = [];
+      const cols = Math.floor(w / 14);
+      const rows = Math.floor(h / 20);
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          if ((id + r + c) % 3 !== 0) {
+            windows.push({
+              wx: 6 + c * 13,
+              wy: 14 + r * 18,
+              isFlickering: (r + c + id) % 2 === 0,
+              blinkDelay: (id * 0.7 + r * 0.3 + c * 0.2) % 4,
+            });
+          }
+        }
+      }
+
+      bldgs.push({
+        id,
+        x: xPos,
+        width: w,
+        height: h,
+        color,
+        windows,
+        delay: 0.05 * id,
+        hasAntenna,
+      });
+
+      xPos += w + gap;
+      id++;
+    }
+
+    return bldgs;
+  }, []);
+
+  return (
+    <div className="w-full h-full relative overflow-hidden bg-slate-950">
+      {/* Fondo de cielo nocturno estelar */}
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-950 via-slate-950 to-purple-950/80" />
+
+      {/* Estrellas titilantes */}
+      {[...Array(30)].map((_, i) => (
+        <motion.div
+          key={`star-${i}`}
+          className="absolute rounded-full bg-white"
+          style={{
+            width: (i % 3) + 1,
+            height: (i % 3) + 1,
+            left: `${(i * 37 + 13) % 100}%`,
+            top: `${(i * 23 + 7) % 60}%`,
+          }}
+          animate={{ opacity: [0.2, 1, 0.2] }}
+          transition={{
+            duration: 1.5 + (i % 4) * 0.5,
+            repeat: Infinity,
+            delay: (i * 0.2) % 2,
+          }}
+        />
+      ))}
+
+      {/* OVNI / NAVE EXTRATERRESTRE */}
+      <motion.g
+        className="absolute z-20 pointer-events-none"
+        initial={{ x: '-15%', y: '10%' }}
+        animate={{
+          x: ['-15%', '115%'],
+          y: ['10%', '18%', '8%', '22%', '12%'],
+        }}
+        transition={{
+          x: { duration: 16, repeat: Infinity, ease: 'linear' },
+          y: { duration: 16, repeat: Infinity, ease: 'easeInOut' },
+        }}
+      >
+        <svg width="120" height="120" viewBox="0 0 120 120" className="overflow-visible">
+          {/* Rayo abductor emisor */}
+          <motion.polygon
+            points="60,35 20,110 100,110"
+            fill="url(#ufoBeamGrad)"
+            animate={{ opacity: [0.15, 0.65, 0.2] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+
+          <defs>
+            <linearGradient id="ufoBeamGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          {/* Cúpula transparente */}
+          <ellipse cx="60" cy="30" rx="16" ry="12" fill="#67e8f9" opacity="0.85" />
+          <ellipse cx="56" cy="27" rx="5" ry="3" fill="#ffffff" opacity="0.9" />
+
+          {/* Alien dentro del platillo */}
+          <circle cx="60" cy="28" r="4" fill="#22c55e" />
+          <circle cx="58" cy="27" r="1" fill="#000" />
+          <circle cx="62" cy="27" r="1" fill="#000" />
+
+          {/* Cuerpo metálico del platillo */}
+          <ellipse cx="60" cy="34" rx="42" ry="10" fill="#94a3b8" />
+          <ellipse cx="60" cy="36" rx="46" ry="6" fill="#475569" />
+
+          {/* Luces giratorias de la nave */}
+          {[...Array(5)].map((_, i) => (
+            <motion.circle
+              key={i}
+              cx={30 + i * 15}
+              cy={36}
+              r={2.5}
+              fill={(i % 2 === 0) ? '#38bdf8' : '#e879f9'}
+              animate={{ opacity: [0.2, 1, 0.2] }}
+              transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.15 }}
+            />
+          ))}
+        </svg>
+      </motion.g>
+
+      {/* SVG DE LA CIUDAD */}
+      <svg
+        viewBox="0 0 1200 360"
+        className="absolute bottom-0 left-0 w-full h-[90%] md:h-[95%]"
+        preserveAspectRatio="xMidYMax slice"
+      >
+        {/* Suelo neón */}
+        <motion.rect
+          x="0" y="356" width="1200" height="4"
+          fill="#c084fc"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1 }}
+          style={{ transformOrigin: 'center' }}
+        />
+
+        {buildings.map((b) => {
+          const buildingY = 360 - b.height;
+          return (
+            <g key={b.id}>
+              {/* Cuerpo del Edificio */}
+              <motion.rect
+                x={b.x}
+                y={buildingY}
+                width={b.width}
+                height={b.height}
+                fill={b.color}
+                rx={2}
+                initial={{ scaleY: 0, opacity: 0 }}
+                animate={{ scaleY: 1, opacity: 1 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 140,
+                  damping: 15,
+                  delay: b.delay,
+                }}
+                style={{ transformOrigin: `${b.x + b.width / 2}px 360px` }}
+              />
+
+              {/* Antena en el techo */}
+              {b.hasAntenna && (
+                <g>
+                  <line
+                    x1={b.x + b.width / 2}
+                    y1={buildingY}
+                    x2={b.x + b.width / 2}
+                    y2={buildingY - 20}
+                    stroke="#e879f9"
+                    strokeWidth={2}
+                  />
+                  <motion.circle
+                    cx={b.x + b.width / 2}
+                    cy={buildingY - 20}
+                    r={3}
+                    fill="#ef4444"
+                    animate={{ opacity: [0.2, 1, 0.2] }}
+                    transition={{ duration: 1, repeat: Infinity }}
+                  />
+                </g>
+              )}
+
+              {/* Ventanas con luces que se prenden y apagan */}
+              {b.windows.map((win, wi) => (
+                <motion.rect
+                  key={wi}
+                  x={b.x + win.wx}
+                  y={buildingY + win.wy}
+                  width={6}
+                  height={8}
+                  rx={1}
+                  fill={(b.id + wi) % 3 === 0 ? '#fde047' : '#c084fc'}
+                  animate={{
+                    opacity: win.isFlickering
+                      ? [0.1, 1, 0.1, 0.9, 0.2]
+                      : [0.8, 0.9, 0.8],
+                  }}
+                  transition={{
+                    duration: win.isFlickering ? 3 + (wi % 3) : 2,
+                    repeat: Infinity,
+                    delay: win.blinkDelay,
+                    ease: 'easeInOut',
+                  }}
+                />
+              ))}
+            </g>
+          );
+        })}
+
+        {/* Grúa de construcción animada */}
+        <g>
+          <rect x="1080" y="70" width="6" height="290" fill="#c084fc" />
+          <rect x="1030" y="70" width="130" height="4" fill="#c084fc" />
+          <line x1="1145" y1="74" x2="1145" y2="150" stroke="#f472b6" strokeWidth="1.5" />
+          <motion.rect
+            x="1139" y="150" width="12" height="16" rx="2"
+            fill="#a855f7"
+            animate={{ y: [150, 180, 150] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </g>
+      </svg>
+    </div>
+  );
+}

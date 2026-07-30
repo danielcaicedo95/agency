@@ -49,6 +49,19 @@ body {
 }
 
 
-.logo {
-  font-family: var(--fuente-logo), sans-serif;
+.logo,
+.font-logo {
+  font-family: var(--fuente-logo), cursive, sans-serif !important;
 }
+
+@keyframes snakeBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.snake-loader {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: snakeBounce 0.8s ease-in-out infinite;
+}

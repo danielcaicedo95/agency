@@ -1,20 +1,30 @@
-// src/app/layout.tsx
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import { LanguageProvider } from '@/app/context/LanguageContext';
+import LanguageSwitcher from '@/app/components/LanguageSwitcher';
+import JsonLd from '@/app/components/JsonLd';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// Fuente personalizada solo para el logo
 const miFuenteLogo = localFont({
   src: './fonts/BILLO.woff2',
   variable: '--fuente-logo',
 });
 
 export const metadata: Metadata = {
-  title: 'Mi Marca Marketing',
-  description: 'Creamos comerciales que inspiran y venden',
+  title: 'Daniel Caicedo | Especialista SEO, SEM & Automatización IA',
+  description: 'Portafolio Profesional de Daniel Caicedo: Experto en SEO Técnico, E-commerce (Shopify, VTEX), campañas Google Ads, Analítica Web (GA4, GTM) y Automatización con Inteligencia Artificial.',
+  keywords: ['SEO Specialist', 'SEM Specialist', 'Automatización IA', 'GA4', 'GTM', 'Technical SEO', 'Shopify Plus SEO', 'VTEX SEO', 'Google Ads', 'Daniel Caicedo'],
+  authors: [{ name: 'Daniel Caicedo' }],
+  openGraph: {
+    title: 'Daniel Caicedo | Especialista SEO, SEM & Automatización IA',
+    description: 'Incrementando tráfico orgánico y conversiones con SEO técnico, analítica avanzada y automatización IA.',
+    type: 'website',
+    locale: 'es_ES',
+    alternateLocale: 'en_US',
+  },
 };
 
 export default function RootLayout({
@@ -23,11 +33,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={miFuenteLogo.variable}>
-      <body>
-        <main>{children}</main>
+    <html lang="es" className={`${inter.className} ${miFuenteLogo.variable}`}>
+      <head>
+        <JsonLd />
+      </head>
+      <body className="antialiased selection:bg-purple-900 selection:text-white">
+        <LanguageProvider>
+          <LanguageSwitcher />
+          <main className="min-h-screen">{children}</main>
+        </LanguageProvider>
       </body>
     </html>
   );
-  
 }

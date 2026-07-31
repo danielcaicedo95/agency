@@ -132,11 +132,69 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECCIÓN MARCA PERSONAL — FOTO ESTILO POLAROID/STICKER DESFACHADO Y DIVERTIDO */}
-      <section className="relative w-full py-14 px-4 sm:px-6 bg-slate-950 border-b border-purple-900/30 overflow-hidden">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      {/* SECCIÓN MARCA PERSONAL CON CONEXIÓN DE ALCANTARILLADO Y TUBERÍAS DE DATOS */}
+      <section className="relative w-full py-16 px-4 sm:px-6 bg-slate-950 border-b border-purple-900/30 overflow-hidden">
+        {/* ========================================================= */}
+        {/* SISTEMA VISUAL DE ALCANTARILLADO Y TUBERÍAS DE DATOS NEÓN */}
+        {/* ========================================================= */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <svg className="w-full h-full" viewBox="0 0 1200 600" preserveAspectRatio="none">
+            {/* TAPA DE ALCANTARILLA EN EL LÍMITE SUPERIOR (CONEXIÓN CON LA CALLE) */}
+            <g transform="translate(600, 0)">
+              {/* Resplandor interior de la alcantarilla */}
+              <circle cx="0" cy="24" r="28" fill="#22d3ee" opacity="0.3" filter="blur(6px)" />
+              {/* Tapa de hierro de la alcantarilla semiabierta */}
+              <circle cx="0" cy="20" r="22" fill="#0f172a" stroke="#38bdf8" strokeWidth="2.5" />
+              <circle cx="0" cy="20" r="16" fill="none" stroke="#64748b" strokeWidth="1" strokeDasharray="4 3" />
+              <text x="0" y="23" fill="#38bdf8" fontSize="6" fontWeight="900" textAnchor="middle" fontFamily="monospace">
+                SEO SEWER
+              </text>
+              
+              {/* DETALLE DIVERTIDO: RATITA CIBERNÉTICA CON LUZ PARPADECIENTE EN LA ALCANTARILLA 🐀 */}
+              <g transform="translate(24, 10)">
+                <ellipse cx="6" cy="6" rx="6" ry="4" fill="#64748b" />
+                <circle cx="10" cy="4" r="3" fill="#94a3b8" />
+                <circle cx="11" cy="3" r="1" fill="#ef4444" /> {/* Ojo neón rojo */}
+                <line x1="0" y1="6" x2="-6" y2="8" stroke="#64748b" strokeWidth="1" /> {/* Cola */}
+                <text x="14" y="2" fill="#fde047" fontSize="7" fontWeight="bold">🐀 ⚡</text>
+              </g>
+            </g>
+
+            {/* TUBERÍAS DE DATOS NEÓN QUE DESCIENDEN DESDE LA ALCANTARILLA HASTA DETRÁS DE LA FOTO */}
+            {/* Tubería Cyan */}
+            <motion.path
+              d="M 600,20 C 500,80 320,120 260,220 C 220,290 260,380 300,500 L 300,600"
+              fill="none" stroke="#22d3ee" strokeWidth="3" strokeOpacity="0.7"
+            />
+            <motion.path
+              d="M 600,20 C 500,80 320,120 260,220 C 220,290 260,380 300,500 L 300,600"
+              fill="none" stroke="#ffffff" strokeWidth="1.5" strokeDasharray="8 20"
+              animate={{ strokeDashoffset: [0, -100] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+            />
+
+            {/* Tubería Púrpura/Magenta */}
+            <motion.path
+              d="M 600,20 C 680,100 480,180 380,260 C 310,320 340,440 420,550 L 420,600"
+              fill="none" stroke="#e879f9" strokeWidth="2.5" strokeOpacity="0.6"
+            />
+            <motion.path
+              d="M 600,20 C 680,100 480,180 380,260 C 310,320 340,440 420,550 L 420,600"
+              fill="none" stroke="#fde047" strokeWidth="1" strokeDasharray="6 18"
+              animate={{ strokeDashoffset: [0, -100] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
+            />
+
+            {/* Tubería Secundaria de Entrada a la Tarjeta de Foto */}
+            <path d="M 260,220 L 320,220" fill="none" stroke="#38bdf8" strokeWidth="2" strokeDasharray="3 3" />
+            <circle cx="320" cy="220" r="4" fill="#fde047" />
+          </svg>
+        </div>
+
+        {/* CONTENIDO DE LA SECCIÓN MARCA PERSONAL */}
+        <div className="relative z-10 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           
-          {/* TARJETA POLAROID / STICKER PEQUEÑA, INCLINADA Y MEMORABLE DE DANIEL */}
+          {/* TARJETA POLAROID DE DANIEL CONECTADA A LA TUBERÍA SUBTERRÁNEA DE DATOS */}
           <motion.div
             className="md:col-span-5 flex justify-center"
             initial={{ opacity: 0, rotate: -12, scale: 0.8 }}
@@ -148,24 +206,27 @@ export default function HomePage() {
             {/* TARJETA POLAROID POP-ART COMPACTA Y DESFADADA */}
             <div className="relative group w-52 h-64 sm:w-60 sm:h-72 bg-slate-100 text-slate-900 rounded-2xl p-2.5 shadow-[0_20px_50px_rgba(34,211,238,0.3)] border-4 border-yellow-300 flex flex-col justify-between overflow-visible transform transition-transform duration-300">
               
-              {/* CINTA ADHESIVA NEÓN EN LA ESQUINA (ESTILO STICKER PEGAMIENTO) */}
+              {/* ENCHUFE NEÓN DE CONEXIÓN CON LA ALCANTARILLA EN EL LATERAL */}
+              <div className="absolute -left-4 top-1/2 -translate-y-1/2 bg-slate-950 text-cyan-300 text-[9px] font-mono font-bold px-1.5 py-1 rounded border border-cyan-400 shadow-lg flex items-center gap-1 z-30">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                SEO FEED
+              </div>
+
+              {/* CINTA ADHESIVA NEÓN EN LA ESQUINA */}
               <div className="absolute -top-3 left-4 bg-cyan-400 text-slate-950 font-black text-[10px] uppercase tracking-widest px-3 py-0.5 rounded-sm shadow-md -rotate-6 z-30 border border-slate-900">
                 YES, IT&apos;S ME! ✌️
               </div>
 
               {/* MARCO DE FOTO POP-UP INTERNO */}
               <div className="relative w-full h-[82%] bg-gradient-to-b from-purple-900 to-slate-950 rounded-xl overflow-hidden border-2 border-slate-900 flex items-end justify-center">
-                
-                {/* Halo retro de color neón en el fondo */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyan-400/40 via-purple-600/30 to-transparent" />
                 
-                {/* FOTO PNG SALIÉNDOSE DE LA PANTALLA */}
                 <div className="relative w-full h-full z-10">
                   <Image
                     src="/daniel-caicedo-seo.png"
                     alt="Daniel Caicedo — SEO & AI Automation Specialist"
                     fill
-                    className="object-contain object-bottom group-hover:scale-110 transition-transform duration-300"
+                    className="object-contain object-bottom group-hover:scale-110 transition-transform duration-500"
                     priority
                   />
                 </div>

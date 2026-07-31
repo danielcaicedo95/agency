@@ -27,9 +27,9 @@ export default function CityAnimation() {
     let id = 0;
 
     while (xPos < 1400) {
-      const w = 35 + Math.floor((id * 37 + 13) % 55);
-      const h = 100 + Math.floor((id * 73 + 29) % 240);
-      const gap = 3 + Math.floor((id * 11) % 6);
+      const w = 36 + Math.floor((id * 37 + 13) % 52);
+      const h = 110 + Math.floor((id * 73 + 29) % 230);
+      const gap = 4 + Math.floor((id * 11) % 5);
       const color = colors[id % colors.length];
       const hasAntenna = id % 3 === 0;
 
@@ -50,6 +50,7 @@ export default function CityAnimation() {
         }
       }
 
+      // Secuencia progresiva de izquierda a derecha (0.14s entre cada edificio)
       bldgs.push({
         id,
         x: xPos,
@@ -57,7 +58,7 @@ export default function CityAnimation() {
         height: h,
         color,
         windows,
-        delay: 0.05 * id,
+        delay: 0.14 * id,
         hasAntenna,
       });
 
@@ -102,8 +103,8 @@ export default function CityAnimation() {
           y: ['10%', '18%', '8%', '22%', '12%'],
         }}
         transition={{
-          x: { duration: 16, repeat: Infinity, ease: 'linear' },
-          y: { duration: 16, repeat: Infinity, ease: 'easeInOut' },
+          x: { duration: 18, repeat: Infinity, ease: 'linear' },
+          y: { duration: 18, repeat: Infinity, ease: 'easeInOut' },
         }}
       >
         <svg width="120" height="120" viewBox="0 0 120 120" className="overflow-visible">
@@ -150,27 +151,44 @@ export default function CityAnimation() {
         </svg>
       </motion.g>
 
-      {/* SVG DE LA CIUDAD */}
+      {/* SVG DE LA CIUDAD EN CONSTRUCCIÓN PROGRESIVA (SECUENCIA DE CRECIMIENTO / GROWTH) */}
       <svg
         viewBox="0 0 1200 360"
         className="absolute bottom-0 left-0 w-full h-[90%] md:h-[95%]"
         preserveAspectRatio="xMidYMax slice"
       >
-        {/* Suelo neón */}
+        {/* Suelo neón de cimientos que se expande */}
         <motion.rect
           x="0" y="356" width="1200" height="4"
           fill="#c084fc"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1 }}
-          style={{ transformOrigin: 'center' }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          style={{ transformOrigin: 'left' }}
         />
 
         {buildings.map((b) => {
           const buildingY = 360 - b.height;
           return (
             <g key={b.id}>
-              {/* Cuerpo del Edificio */}
+              {/* Línea de Láser / Crecimiento que sube antes del edificio */}
+              <motion.line
+                x1={b.x + b.width / 2}
+                y1="360"
+                x2={b.x + b.width / 2}
+                y2={buildingY}
+                stroke="#22d3ee"
+                strokeWidth={2}
+                initial={{ opacity: 0, y2: 360 }}
+                animate={{ opacity: [0, 1, 0], y2: buildingY }}
+                transition={{
+                  duration: 0.4,
+                  delay: b.delay,
+                  ease: 'easeOut'
+                }}
+              />
+
+              {/* Cuerpo del Edificio elevándose desde abajo hacia arriba (Growth) */}
               <motion.rect
                 x={b.x}
                 y={buildingY}
@@ -182,16 +200,36 @@ export default function CityAnimation() {
                 animate={{ scaleY: 1, opacity: 1 }}
                 transition={{
                   type: 'spring',
-                  stiffness: 140,
-                  damping: 15,
-                  delay: b.delay,
+                  stiffness: 120,
+                  damping: 14,
+                  delay: b.delay + 0.1,
                 }}
                 style={{ transformOrigin: `${b.x + b.width / 2}px 360px` }}
               />
 
-              {/* Antena en el techo */}
+              {/* Borde superior resplandeciente al coronar la altura */}
+              <motion.rect
+                x={b.x}
+                y={buildingY}
+                width={b.width}
+                height={3}
+                fill="#38bdf8"
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: [0, 1, 0.4], scaleX: [0, 1, 1] }}
+                transition={{
+                  delay: b.delay + 0.5,
+                  duration: 0.5
+                }}
+              />
+
+              {/* Antena en el techo que aparece cuando el edificio alcanza su tope */}
               {b.hasAntenna && (
-                <g>
+                <motion.g
+                  initial={{ opacity: 0, scaleY: 0 }}
+                  animate={{ opacity: 1, scaleY: 1 }}
+                  transition={{ delay: b.delay + 0.6, duration: 0.3 }}
+                  style={{ transformOrigin: `${b.x + b.width / 2}px ${buildingY}px` }}
+                >
                   <line
                     x1={b.x + b.width / 2}
                     y1={buildingY}
@@ -208,10 +246,10 @@ export default function CityAnimation() {
                     animate={{ opacity: [0.2, 1, 0.2] }}
                     transition={{ duration: 1, repeat: Infinity }}
                   />
-                </g>
+                </motion.g>
               )}
 
-              {/* Ventanas con luces que se prenden y apagan */}
+              {/* Ventanas que se van iluminando secuencialmente de abajo hacia arriba tras erigirse el edificio */}
               {b.windows.map((win, wi) => (
                 <motion.rect
                   key={wi}
@@ -221,16 +259,24 @@ export default function CityAnimation() {
                   height={8}
                   rx={1}
                   fill={(b.id + wi) % 3 === 0 ? '#fde047' : '#c084fc'}
+                  initial={{ opacity: 0, scale: 0 }}
                   animate={{
                     opacity: win.isFlickering
-                      ? [0.1, 1, 0.1, 0.9, 0.2]
-                      : [0.8, 0.9, 0.8],
+                      ? [0, 1, 0.2, 1, 0.3]
+                      : [0, 1, 0.8],
+                    scale: 1
                   }}
                   transition={{
-                    duration: win.isFlickering ? 3 + (wi % 3) : 2,
-                    repeat: Infinity,
-                    delay: win.blinkDelay,
-                    ease: 'easeInOut',
+                    opacity: {
+                      delay: b.delay + 0.5 + (win.wy / b.height) * 0.3,
+                      duration: win.isFlickering ? 3 + (wi % 3) : 1.5,
+                      repeat: win.isFlickering ? Infinity : 0,
+                      ease: 'easeInOut'
+                    },
+                    scale: {
+                      delay: b.delay + 0.5 + (win.wy / b.height) * 0.3,
+                      duration: 0.3
+                    }
                   }}
                 />
               ))}
@@ -238,8 +284,12 @@ export default function CityAnimation() {
           );
         })}
 
-        {/* Grúa de construcción animada */}
-        <g>
+        {/* Grúa de construcción animada en el extremo derecho */}
+        <motion.g
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.8, duration: 0.8 }}
+        >
           <rect x="1080" y="70" width="6" height="290" fill="#c084fc" />
           <rect x="1030" y="70" width="130" height="4" fill="#c084fc" />
           <line x1="1145" y1="74" x2="1145" y2="150" stroke="#f472b6" strokeWidth="1.5" />
@@ -249,7 +299,7 @@ export default function CityAnimation() {
             animate={{ y: [150, 180, 150] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
-        </g>
+        </motion.g>
       </svg>
     </div>
   );

@@ -21,16 +21,19 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-pale-pink/30 text-slate-900 flex flex-col">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-cyan-500 selection:text-slate-950">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-16">
+      <main className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-16 w-full">
         {/* HEADER */}
         <div className="text-center space-y-3">
-          <h1 className="text-4xl sm:text-5xl font-black text-purple-950">
+          <span className="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase bg-slate-900/80 px-4 py-1.5 rounded-full border border-cyan-500/30">
+            TECHNICAL & STRATEGIC CAPABILITIES
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-cyan-300">
             {t.skills.title}
           </h1>
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto">
             {t.skills.subtitle}
           </p>
         </div>
@@ -40,19 +43,21 @@ export default function ServicesPage() {
           {t.skills.categories.map((cat, idx) => (
             <motion.div
               key={idx}
-              className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl border border-purple-100 space-y-4 hover:shadow-2xl transition-all"
+              className="bg-slate-900/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-purple-500/20 hover:border-cyan-400/50 space-y-4 transition-all group"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
             >
-              <div className="w-12 h-12 rounded-2xl bg-purple-900 text-white flex items-center justify-center font-bold text-xl shadow-md">
-                0{idx + 1}
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 to-cyan-400 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center font-mono font-bold text-cyan-300 text-lg">
+                  0{idx + 1}
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-purple-950">
+              <h3 className="text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors">
                 {cat.name}
               </h3>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-slate-400 leading-relaxed text-sm sm:text-base">
                 {cat.description}
               </p>
             </motion.div>
@@ -61,28 +66,28 @@ export default function ServicesPage() {
 
         {/* MATRIZ DE SKILLS TÉCNICAS */}
         <div className="space-y-6">
-          <h2 className="text-3xl font-black text-purple-950 text-center">
+          <h2 className="text-3xl font-black text-white text-center">
             Matriz de Habilidades Clave
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {skillList.map((skill, idx) => (
               <motion.div
                 key={idx}
-                className="p-5 rounded-2xl bg-white/90 shadow-md border border-purple-100 flex items-center justify-between hover:scale-105 transition-transform"
+                className="p-5 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-purple-500/20 flex items-center justify-between hover:border-cyan-400/60 hover:scale-105 transition-all"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.05 }}
               >
                 <div className="space-y-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-purple-700">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
                     {skill.category}
                   </span>
-                  <h4 className="font-bold text-gray-900 text-sm sm:text-base">
+                  <h4 className="font-bold text-white text-sm sm:text-base">
                     {skill.title}
                   </h4>
                 </div>
-                <span className="px-3 py-1 bg-purple-900/10 text-purple-900 text-xs font-bold rounded-full">
+                <span className="px-3 py-1 bg-purple-950 text-cyan-300 text-xs font-mono font-bold rounded-full border border-purple-500/30">
                   {skill.level}
                 </span>
               </motion.div>
@@ -91,7 +96,7 @@ export default function ServicesPage() {
         </div>
       </main>
 
-      <footer className="w-full py-6 text-center text-xs text-purple-950/60 font-medium">
+      <footer className="w-full py-6 text-center text-xs text-slate-500 font-mono border-t border-slate-900">
         © {new Date().getFullYear()} Daniel Caicedo — SEO, SEM & AI Automation
       </footer>
     </div>

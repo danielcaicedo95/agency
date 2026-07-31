@@ -13,22 +13,23 @@ const AnimatedLetters = ({ phase }: { phase: string }): ReactElement => {
 
   return (
     <motion.div
-      className="absolute inset-0 flex justify-center items-center z-30"
+      className="absolute inset-0 flex justify-center items-center z-30 pointer-events-none"
       animate={{ 
         y: phase === 'transition' ? -windowHeight / 2 : 0,
+        opacity: phase === 'transition' ? 0 : 1,
         transition: { 
-          duration: 1.2,
+          duration: 1,
           ease: [0.33, 1, 0.68, 1]
         }
       }}
     >
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-3 px-4">
         <div className="flex flex-wrap justify-center gap-2 md:gap-4">
           {letters.map((letter, i) => (
             <motion.span
               key={i}
-              className="logo font-logo inline-block text-7xl md:text-9xl text-purple-900 tracking-normal drop-shadow-[0_8px_8px_rgba(0,0,0,0.3)]"
-              initial={{ y: -800, scale: 0.5, rotate: -25, opacity: 0 }}
+              className="logo font-logo inline-block text-7xl md:text-9xl text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-purple-300 to-fuchsia-400 tracking-normal drop-shadow-[0_10px_20px_rgba(168,85,247,0.5)]"
+              initial={{ y: -600, scale: 0.4, rotate: -20, opacity: 0 }}
               animate={{
                 y: 0,
                 scale: 1,
@@ -39,7 +40,7 @@ const AnimatedLetters = ({ phase }: { phase: string }): ReactElement => {
                   mass: 2,
                   stiffness: 160,
                   damping: 12,
-                  delay: i * 0.18
+                  delay: i * 0.15
                 }
               }}
             >
@@ -48,10 +49,10 @@ const AnimatedLetters = ({ phase }: { phase: string }): ReactElement => {
           ))}
         </div>
         <motion.span
-          className="text-base md:text-2xl font-bold tracking-widest text-purple-950 uppercase bg-white/60 px-4 py-1 rounded-full shadow-sm"
+          className="text-xs sm:text-base md:text-xl font-extrabold tracking-widest text-cyan-200 uppercase bg-slate-950/80 backdrop-blur-md px-6 py-2 rounded-full border border-purple-500/50 shadow-xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          transition={{ delay: 1, duration: 0.8 }}
         >
           DANIEL CAICEDO — SEO • SEM • AI
         </motion.span>

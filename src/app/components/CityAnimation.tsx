@@ -3,6 +3,14 @@
 import { motion } from 'framer-motion';
 import { useMemo } from 'react';
 
+interface BuildingSign {
+  text: string;
+  subtext: string;
+  icon: string;
+  neonColor: string;
+  textColor: string;
+}
+
 interface Building {
   id: number;
   x: number;
@@ -12,6 +20,7 @@ interface Building {
   windows: { wx: number; wy: number; isFlickering: boolean; blinkDelay: number }[];
   delay: number;
   hasAntenna: boolean;
+  sign?: BuildingSign;
 }
 
 export default function CityAnimation() {
@@ -22,13 +31,21 @@ export default function CityAnimation() {
       '#2e1065', '#4f46e5', '#3730a3', '#6d28d9',
     ];
 
+    const signsMap: { [key: number]: BuildingSign } = {
+      1: { text: 'TOYOTA', subtext: 'DEALERSHIP', icon: '🚗', neonColor: '#ef4444', textColor: '#fca5a5' },
+      4: { text: 'FASHION', subtext: 'STORE', icon: '🛍️', neonColor: '#e879f9', textColor: '#f0abfc' },
+      7: { text: 'BAR & LOUNGE', subtext: 'GASTROBAR', icon: '🍸', neonColor: '#22d3ee', textColor: '#a5f3fc' },
+      10: { text: 'HEALTHCARE', subtext: 'INSURANCE', icon: '🏥', neonColor: '#4ade80', textColor: '#bbf7d0' },
+      13: { text: 'LEGAL TECH', subtext: 'SERVICES', icon: '⚖️', neonColor: '#fde047', textColor: '#fef08a' },
+    };
+
     const bldgs: Building[] = [];
     let xPos = 0;
     let id = 0;
 
     while (xPos < 1400) {
-      const w = 36 + Math.floor((id * 37 + 13) % 52);
-      const h = 110 + Math.floor((id * 73 + 29) % 230);
+      const w = 38 + Math.floor((id * 37 + 13) % 52);
+      const h = 115 + Math.floor((id * 73 + 29) % 225);
       const gap = 4 + Math.floor((id * 11) % 5);
       const color = colors[id % colors.length];
       const hasAntenna = id % 3 === 0;
@@ -50,7 +67,6 @@ export default function CityAnimation() {
         }
       }
 
-      // Secuencia progresiva de izquierda a derecha (0.14s entre cada edificio)
       bldgs.push({
         id,
         x: xPos,
@@ -60,6 +76,7 @@ export default function CityAnimation() {
         windows,
         delay: 0.14 * id,
         hasAntenna,
+        sign: signsMap[id],
       });
 
       xPos += w + gap;
@@ -151,13 +168,13 @@ export default function CityAnimation() {
         </svg>
       </motion.g>
 
-      {/* SVG DE LA CIUDAD EN CONSTRUCCIÓN PROGRESIVA (SECUENCIA DE CRECIMIENTO / GROWTH) */}
+      {/* SVG DE LA CIUDAD EN CONSTRUCCIÓN PROGRESIVA CON LETREROS NEÓN DE RUBROS REALES */}
       <svg
         viewBox="0 0 1200 360"
         className="absolute bottom-0 left-0 w-full h-[90%] md:h-[95%]"
         preserveAspectRatio="xMidYMax slice"
       >
-        {/* Suelo neón de cimientos que se expande */}
+        {/* Suelo neón de cimientos */}
         <motion.rect
           x="0" y="356" width="1200" height="4"
           fill="#c084fc"
@@ -171,7 +188,7 @@ export default function CityAnimation() {
           const buildingY = 360 - b.height;
           return (
             <g key={b.id}>
-              {/* Línea de Láser / Crecimiento que sube antes del edificio */}
+              {/* Láser de crecimiento */}
               <motion.line
                 x1={b.x + b.width / 2}
                 y1="360"
@@ -188,7 +205,7 @@ export default function CityAnimation() {
                 }}
               />
 
-              {/* Cuerpo del Edificio elevándose desde abajo hacia arriba (Growth) */}
+              {/* Cuerpo del Edificio */}
               <motion.rect
                 x={b.x}
                 y={buildingY}
@@ -207,7 +224,78 @@ export default function CityAnimation() {
                 style={{ transformOrigin: `${b.x + b.width / 2}px 360px` }}
               />
 
-              {/* Borde superior resplandeciente al coronar la altura */}
+              {/* LETREROS NEÓN DE RUBROS / CLIENTES (CONCESIONARIO, E-COMMERCE ROPA, BAR, SALUD, LEGAL) */}
+              {b.sign && (
+                <motion.g
+                  initial={{ opacity: 0, scale: 0.5, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ delay: b.delay + 0.7, duration: 0.5, type: 'spring' }}
+                >
+                  {/* Soporte metálico del letrero */}
+                  <line
+                    x1={b.x + b.width / 2 - 12}
+                    y1={buildingY}
+                    x2={b.x + b.width / 2 - 12}
+                    y2={buildingY - 24}
+                    stroke={b.sign.neonColor}
+                    strokeWidth="1.5"
+                  />
+                  <line
+                    x1={b.x + b.width / 2 + 12}
+                    y1={buildingY}
+                    x2={b.x + b.width / 2 + 12}
+                    y2={buildingY - 24}
+                    stroke={b.sign.neonColor}
+                    strokeWidth="1.5"
+                  />
+
+                  {/* Caja/Marco Neón del Letrero */}
+                  <motion.rect
+                    x={b.x - 22}
+                    y={buildingY - 48}
+                    width={b.width + 44}
+                    height="24"
+                    rx="4"
+                    fill="#090d16"
+                    stroke={b.sign.neonColor}
+                    strokeWidth="2"
+                    animate={{
+                      strokeOpacity: [0.6, 1, 0.6],
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+
+                  {/* Ícono y Texto Principal del Rubro */}
+                  <text
+                    x={b.x + b.width / 2}
+                    y={buildingY - 37}
+                    fill={b.sign.textColor}
+                    fontSize="9"
+                    fontWeight="900"
+                    fontFamily="sans-serif"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                  >
+                    {b.sign.icon} {b.sign.text}
+                  </text>
+
+                  {/* Subtexto del Rubro */}
+                  <text
+                    x={b.x + b.width / 2}
+                    y={buildingY - 28}
+                    fill="#94a3b8"
+                    fontSize="6"
+                    fontWeight="700"
+                    fontFamily="sans-serif"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                  >
+                    {b.sign.subtext}
+                  </text>
+                </motion.g>
+              )}
+
+              {/* Borde superior neón */}
               <motion.rect
                 x={b.x}
                 y={buildingY}
@@ -222,8 +310,8 @@ export default function CityAnimation() {
                 }}
               />
 
-              {/* Antena en el techo que aparece cuando el edificio alcanza su tope */}
-              {b.hasAntenna && (
+              {/* Antena en el techo (si no tiene letrero) */}
+              {b.hasAntenna && !b.sign && (
                 <motion.g
                   initial={{ opacity: 0, scaleY: 0 }}
                   animate={{ opacity: 1, scaleY: 1 }}
@@ -249,7 +337,7 @@ export default function CityAnimation() {
                 </motion.g>
               )}
 
-              {/* Ventanas que se van iluminando secuencialmente de abajo hacia arriba tras erigirse el edificio */}
+              {/* Ventanas con luces que se prenden y apagan */}
               {b.windows.map((win, wi) => (
                 <motion.rect
                   key={wi}
@@ -284,7 +372,7 @@ export default function CityAnimation() {
           );
         })}
 
-        {/* Grúa de construcción animada en el extremo derecho */}
+        {/* Grúa de construcción animada */}
         <motion.g
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}

@@ -81,7 +81,6 @@ export default function CityAnimation() {
 
     while (xPos < 1400) {
       const estab = establishmentMap[id];
-      // Hacemos más anchos los edificios con establecimiento especial para detallar la fachada
       const w = estab
         ? (estab.type === 'dealership' ? 140 : 105)
         : 38 + Math.floor((id * 37 + 13) % 48);
@@ -93,7 +92,6 @@ export default function CityAnimation() {
 
       const windows: { wx: number; wy: number; isFlickering: boolean; blinkDelay: number }[] = [];
       const cols = Math.floor((w - 12) / 13);
-      // Dejamos libre los primeros 42px de la parte inferior para la fachada comercial de la calle
       const rows = Math.floor((h - 50) / 18);
 
       for (let r = 0; r < rows; r++) {
@@ -153,20 +151,21 @@ export default function CityAnimation() {
         />
       ))}
 
-      {/* OVNI / NAVE EXTRATERRESTRE */}
+      {/* OVNI / NAVE EXTRATERRESTRE CON LETRERO PUBLICITARIO NEÓN 'ADS' */}
       <motion.g
         className="absolute z-20 pointer-events-none"
-        initial={{ x: '-15%', y: '8%' }}
+        initial={{ x: '-25%', y: '5%' }}
         animate={{
-          x: ['-15%', '115%'],
-          y: ['8%', '16%', '6%', '20%', '10%'],
+          x: ['-25%', '125%'],
+          y: ['5%', '22%', '8%', '28%', '10%', '18%'],
         }}
         transition={{
-          x: { duration: 20, repeat: Infinity, ease: 'linear' },
-          y: { duration: 20, repeat: Infinity, ease: 'easeInOut' },
+          x: { duration: 22, repeat: Infinity, ease: 'linear' },
+          y: { duration: 22, repeat: Infinity, ease: 'easeInOut' },
         }}
       >
-        <svg width="120" height="120" viewBox="0 0 120 120" className="overflow-visible">
+        <svg width="180" height="140" viewBox="0 0 180 140" className="overflow-visible">
+          {/* Rayo abductor emisor */}
           <motion.polygon
             points="60,35 20,110 100,110"
             fill="url(#ufoBeamGrad)"
@@ -181,16 +180,20 @@ export default function CityAnimation() {
             </linearGradient>
           </defs>
 
+          {/* Cúpula transparente */}
           <ellipse cx="60" cy="30" rx="16" ry="12" fill="#67e8f9" opacity="0.85" />
           <ellipse cx="56" cy="27" rx="5" ry="3" fill="#ffffff" opacity="0.9" />
 
+          {/* Alien dentro del platillo */}
           <circle cx="60" cy="28" r="4" fill="#22c55e" />
           <circle cx="58" cy="27" r="1" fill="#000" />
           <circle cx="62" cy="27" r="1" fill="#000" />
 
+          {/* Platillo metálico */}
           <ellipse cx="60" cy="34" rx="42" ry="10" fill="#94a3b8" />
           <ellipse cx="60" cy="36" rx="46" ry="6" fill="#475569" />
 
+          {/* Luces giratorias neón */}
           {[...Array(5)].map((_, i) => (
             <motion.circle
               key={i}
@@ -202,30 +205,130 @@ export default function CityAnimation() {
               transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.15 }}
             />
           ))}
+
+          {/* BANNER / LETRERO PUBLICITARIO HOLOGRÁFICO 'GOOGLE ADS' REMOLCADO POR LA NAVE */}
+          <g transform="translate(105, 18)">
+            {/* Cable de acople flotante */}
+            <line x1="-5" y1="16" x2="0" y2="16" stroke="#22d3ee" strokeWidth="1.5" strokeDasharray="2 2" />
+            
+            {/* Marco de letrero publicitario Neón ADS */}
+            <rect x="0" y="4" width="70" height="24" rx="4" fill="#090d16" stroke="#f472b6" strokeWidth="1.5" />
+            
+            {/* Texto neón parpadeante GOOGLE ADS */}
+            <text x="35" y="15" fill="#38bdf8" fontSize="8" fontWeight="900" fontFamily="sans-serif" textAnchor="middle">
+              ⚡ GOOGLE ADS
+            </text>
+            <text x="35" y="23" fill="#fde047" fontSize="6" fontWeight="800" fontFamily="sans-serif" textAnchor="middle">
+              CAMPAIGNS 🚀
+            </text>
+          </g>
         </svg>
       </motion.g>
 
-      {/* SVG PRINCIPAL DE LA CIUDAD Y LOCALES A NIVEL DE CALLE */}
+      {/* SVG PRINCIPAL DE LA CIUDAD, CALLE Y LÁMPARAS DE ALUMBRADO */}
       <svg
         viewBox="0 0 1200 360"
         className="absolute bottom-0 left-0 w-full h-[90%] md:h-[95%]"
         preserveAspectRatio="xMidYMax slice"
       >
-        {/* Acera / Calle neón nocturna */}
-        <rect x="0" y="352" width="1200" height="8" fill="#0f172a" />
-        <motion.line
-          x1="0" y1="352" x2="1200" y2="352"
-          stroke="#38bdf8" strokeWidth="2"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1 }}
-          style={{ transformOrigin: 'left' }}
+        {/* ========================================================= */}
+        {/* CALLE REALISTA DE ASFALTO Y PINTURA NEÓN */}
+        {/* ========================================================= */}
+        {/* Asfalto */}
+        <rect x="0" y="340" width="1200" height="20" fill="#090d16" />
+        <rect x="0" y="340" width="1200" height="2" fill="#1e293b" />
+        
+        {/* Línea divisoria de carril amarilla discontinua */}
+        <line
+          x1="0" y1="350" x2="1200" y2="350"
+          stroke="#fde047" strokeWidth="1.5"
+          strokeDasharray="16 12" strokeOpacity="0.8"
         />
 
+        {/* Pasos de peatones (Zebra crosswalk) */}
+        {[80, 520, 960].map((cx, i) => (
+          <g key={`cross-${i}`}>
+            {[...Array(6)].map((_, zi) => (
+              <rect
+                key={zi}
+                x={cx + zi * 8}
+                y="342"
+                width="4"
+                height="16"
+                fill="#f8fafc"
+                opacity="0.7"
+              />
+            ))}
+          </g>
+        ))}
+
+        {/* Línea neón de bordillo de acera */}
+        <line x1="0" y1="338" x2="1200" y2="338" stroke="#38bdf8" strokeWidth="1.5" />
+
+        {/* ========================================================= */}
+        {/* LÁMPARAS DE ALUMBRADO PÚBLICO (CON 1 LÁMPARA DAÑADA TITILANDO) */}
+        {/* ========================================================= */}
+        {[100, 320, 580, 820, 1040].map((lx, idx) => {
+          const isDamaged = idx === 2; // La lámpara en x=580 está dañada y titila
+          return (
+            <g key={`lamp-${idx}`}>
+              {/* Poste metálico futurista */}
+              <line x1={lx} y1="338" x2={lx} y2="295" stroke="#475569" strokeWidth="2.5" />
+              {/* Brazo curvo */}
+              <path d={`M ${lx},295 Q ${lx + 8},288 ${lx + 14},290`} fill="none" stroke="#64748b" strokeWidth="2" />
+              
+              {/* Cabeza de la luminaria LED */}
+              <ellipse cx={lx + 14} cy={290} rx="4" ry="2" fill="#0f172a" stroke="#38bdf8" strokeWidth="1" />
+
+              {/* CONO DE LUZ DE LA LÁMPARA */}
+              {isDamaged ? (
+                // LÁMPARA DAÑADA / PARPADEO IRREGULAR
+                <g>
+                  <motion.polygon
+                    points={`${lx + 14},291 ${lx - 12},340 ${lx + 40},340`}
+                    fill="url(#lampLightGrad)"
+                    animate={{
+                      opacity: [0.05, 0.9, 0.1, 0.8, 0.0, 1, 0.15, 0.95, 0.05],
+                    }}
+                    transition={{
+                      duration: 2.4,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                  <motion.circle
+                    cx={lx + 14} cy={291} r="2.5" fill="#fde047"
+                    animate={{ opacity: [0.1, 1, 0.2, 0.9, 0.05, 1, 0.2] }}
+                    transition={{ duration: 2.4, repeat: Infinity }}
+                  />
+                </g>
+              ) : (
+                // LÁMPARA NORMAL FUNCIONAL
+                <g>
+                  <polygon
+                    points={`${lx + 14},291 ${lx - 12},340 ${lx + 40},340`}
+                    fill="url(#lampLightGrad)"
+                    opacity="0.3"
+                  />
+                  <circle cx={lx + 14} cy={291} r="2.5" fill="#67e8f9" />
+                </g>
+              )}
+            </g>
+          );
+        })}
+
+        <defs>
+          <linearGradient id="lampLightGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#fde047" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#38bdf8" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+
+        {/* BUILDINGS RENDER */}
         {buildings.map((b) => {
-          const buildingY = 360 - b.height;
-          const groundY = 352;
-          const facadeH = 42;
+          const buildingY = 338 - b.height;
+          const groundY = 338;
+          const facadeH = 40;
           const facadeY = groundY - facadeH;
 
           return (
@@ -233,12 +336,12 @@ export default function CityAnimation() {
               {/* Láser de construcción que se eleva */}
               <motion.line
                 x1={b.x + b.width / 2}
-                y1="360"
+                y1="338"
                 x2={b.x + b.width / 2}
                 y2={buildingY}
                 stroke="#22d3ee"
                 strokeWidth={2}
-                initial={{ opacity: 0, y2: 360 }}
+                initial={{ opacity: 0, y2: 338 }}
                 animate={{ opacity: [0, 1, 0], y2: buildingY }}
                 transition={{ duration: 0.4, delay: b.delay, ease: 'easeOut' }}
               />
@@ -259,7 +362,7 @@ export default function CityAnimation() {
                   damping: 14,
                   delay: b.delay + 0.1,
                 }}
-                style={{ transformOrigin: `${b.x + b.width / 2}px 360px` }}
+                style={{ transformOrigin: `${b.x + b.width / 2}px 338px` }}
               />
 
               {/* Borde Neón Superior */}
@@ -318,95 +421,85 @@ export default function CityAnimation() {
               ))}
 
               {/* ========================================================= */}
-              {/* FACHADA DE PLANTA BAJA CON LOCALES, PUERTAS Y AUTOS DETALLADOS */}
+              {/* PUERTAS Y FACHADAS ULTRA MODERNAS CON SENSORES Y NEÓN */}
               {/* ========================================================= */}
 
-              {/* PUERTA ESTÁNDAR PARA EDIFICIOS REGULARES */}
+              {/* PUERTA MODERNA FUTURISTA DE CRISTAL PARA EDIFICIOS REGULARES */}
               {!b.establishment && b.width >= 35 && (
                 <g>
-                  {/* Marco de Puerta en Primer Piso */}
+                  {/* Marco exterior de portal neón cian */}
                   <rect
-                    x={b.x + b.width / 2 - 8}
-                    y={groundY - 24}
-                    width={16}
-                    height={24}
-                    fill="#090d16"
-                    stroke="#334155"
+                    x={b.x + b.width / 2 - 9}
+                    y={groundY - 25}
+                    width={18}
+                    height={25}
+                    fill="#030712"
+                    stroke="#22d3ee"
                     strokeWidth="1.5"
-                    rx="1"
+                    rx="2"
                   />
-                  {/* Vidrio templado con luz interior */}
+                  {/* Paneles de vidrio deslizable con resplandor */}
                   <rect
-                    x={b.x + b.width / 2 - 6}
-                    y={groundY - 22}
-                    width={12}
-                    height={22}
+                    x={b.x + b.width / 2 - 7}
+                    y={groundY - 23}
+                    width={6}
+                    height={23}
                     fill="#38bdf8"
-                    fillOpacity="0.3"
+                    fillOpacity="0.4"
+                    stroke="#67e8f9"
+                    strokeWidth="0.5"
                   />
-                  {/* Manija */}
-                  <circle cx={b.x + b.width / 2 + 3} cy={groundY - 11} r="1" fill="#fde047" />
+                  <rect
+                    x={b.x + b.width / 2 + 1}
+                    y={groundY - 23}
+                    width={6}
+                    height={23}
+                    fill="#38bdf8"
+                    fillOpacity="0.4"
+                    stroke="#67e8f9"
+                    strokeWidth="0.5"
+                  />
+                  {/* Barra LED sensórica de acceso arriba de la puerta */}
+                  <line
+                    x1={b.x + b.width / 2 - 7} y1={groundY - 24}
+                    x2={b.x + b.width / 2 + 7} y2={groundY - 24}
+                    stroke="#fde047" strokeWidth="1.5"
+                  />
                 </g>
               )}
 
-              {/* --------------------------------------------------------- */}
               {/* 1. CONCESIONARIO DE CARROS (APEX CYBERMOTORS) */}
-              {/* --------------------------------------------------------- */}
               {b.establishment?.type === 'dealership' && (
                 <g>
-                  {/* Gran Showroom de Cristal Templado Iluminado */}
                   <rect
-                    x={b.x + 4}
-                    y={facadeY}
-                    width={b.width - 8}
-                    height={facadeH}
-                    fill="#030712"
-                    stroke="#22d3ee"
-                    strokeWidth="2"
-                    rx="4"
+                    x={b.x + 4} y={facadeY}
+                    width={b.width - 8} height={facadeH}
+                    fill="#030712" stroke="#22d3ee" strokeWidth="2" rx="4"
                   />
-                  {/* Resplandor interior del Showroom */}
                   <rect
-                    x={b.x + 6}
-                    y={facadeY + 2}
-                    width={b.width - 12}
-                    height={facadeH - 4}
-                    fill="url(#showroomGlow)"
-                    fillOpacity="0.4"
+                    x={b.x + 6} y={facadeY + 2}
+                    width={b.width - 12} height={facadeH - 4}
+                    fill="url(#showroomGlow)" fillOpacity="0.4"
                   />
-                  <defs>
-                    <linearGradient id="showroomGlow" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.6" />
-                      <stop offset="100%" stopColor="#030712" stopOpacity="0.9" />
-                    </linearGradient>
-                  </defs>
 
-                  {/* Puertas de Cristal Deslizante en el Centro */}
+                  {/* Puertas de Cristal Deslizante Modernas */}
                   <rect
-                    x={b.x + b.width / 2 - 12}
-                    y={groundY - 28}
-                    width={24}
-                    height={28}
-                    fill="#0f172a"
-                    stroke="#38bdf8"
-                    strokeWidth="1.5"
+                    x={b.x + b.width / 2 - 12} y={groundY - 28}
+                    width={24} height={28}
+                    fill="#0f172a" stroke="#38bdf8" strokeWidth="1.5"
                   />
                   <line x1={b.x + b.width / 2} y1={groundY - 28} x2={b.x + b.width / 2} y2={groundY} stroke="#38bdf8" strokeWidth="1" />
 
-                  {/* AUTO DEPORTIVO CIBERNÉTICO #1 DENTRO DEL SHOWROOM */}
+                  {/* AUTO DEPORTIVO CIBERNÉTICO #1 */}
                   <g transform={`translate(${b.x + 12}, ${groundY - 14})`}>
-                    {/* Carrocería deportiva aerodinámica */}
                     <path d="M 0,10 L 6,4 L 18,2 L 28,5 L 36,10 Z" fill="#ef4444" />
-                    {/* Parabrisas con brillo neón */}
                     <path d="M 8,4 L 16,3 L 22,5 L 18,7 Z" fill="#67e8f9" opacity="0.9" />
-                    {/* Ruedas Neón encendidas */}
                     <circle cx="8" cy="11" r="3.5" fill="#090d16" stroke="#22d3ee" strokeWidth="1.5" />
                     <circle cx="28" cy="11" r="3.5" fill="#090d16" stroke="#22d3ee" strokeWidth="1.5" />
-                    {/* Foco LED */}
                     <circle cx="34" cy="9" r="1.5" fill="#fde047" />
                   </g>
 
-                  {/* AUTO DEPORTIVO CIBERNÉTICO #2 APARCADO EN EL SHOWROOM */}
+                  {/* AUTO DEPORTIVO CIBERNÉTICO #2 */}
                   <g transform={`translate(${b.x + 82}, ${groundY - 14})`}>
                     <path d="M 0,10 L 6,4 L 18,2 L 28,5 L 36,10 Z" fill="#38bdf8" />
                     <path d="M 8,4 L 16,3 L 22,5 L 18,7 Z" fill="#f472b6" opacity="0.9" />
@@ -415,67 +508,36 @@ export default function CityAnimation() {
                     <circle cx="34" cy="9" r="1.5" fill="#22d3ee" />
                   </g>
 
-                  {/* LETRERO NEÓN PRINCIPAL JUSTO ENCIMA DE LA ENTRADA/FACAHDA */}
-                  <motion.g
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: b.delay + 0.6 }}
-                  >
+                  {/* LETRERO NEÓN ENCIMA DE LA PUERTA */}
+                  <g>
                     <rect
-                      x={b.x + 8}
-                      y={facadeY - 18}
-                      width={b.width - 16}
-                      height="16"
-                      rx="3"
-                      fill="#090d16"
-                      stroke="#22d3ee"
-                      strokeWidth="2"
+                      x={b.x + 8} y={facadeY - 18}
+                      width={b.width - 16} height="16"
+                      rx="3" fill="#090d16" stroke="#22d3ee" strokeWidth="2"
                     />
                     <text
-                      x={b.x + b.width / 2}
-                      y={facadeY - 8}
-                      fill="#e0f2fe"
-                      fontSize="9"
-                      fontWeight="900"
-                      fontFamily="sans-serif"
-                      textAnchor="middle"
-                      dominantBaseline="middle"
+                      x={b.x + b.width / 2} y={facadeY - 8}
+                      fill="#e0f2fe" fontSize="9" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle"
                     >
                       ⚡ APEX CYBERMOTORS ⚡
                     </text>
-                  </motion.g>
+                  </g>
                 </g>
               )}
 
-              {/* --------------------------------------------------------- */}
-              {/* 2. BOUTIQUE E-COMMERCE DE ROPA (NEON BOUTIQUE) */}
-              {/* --------------------------------------------------------- */}
+              {/* 2. BOUTIQUE E-COMMERCE DE ROPA */}
               {b.establishment?.type === 'fashion' && (
                 <g>
-                  {/* Fachada Comercial de Ropa con Grandes Ventanales */}
                   <rect
-                    x={b.x + 4}
-                    y={facadeY}
-                    width={b.width - 8}
-                    height={facadeH}
-                    fill="#090d16"
-                    stroke="#e879f9"
-                    strokeWidth="1.5"
-                    rx="3"
+                    x={b.x + 4} y={facadeY}
+                    width={b.width - 8} height={facadeH}
+                    fill="#090d16" stroke="#e879f9" strokeWidth="1.5" rx="3"
                   />
-
-                  {/* Puerta Doble de Vidrio */}
                   <rect
-                    x={b.x + b.width / 2 - 10}
-                    y={groundY - 26}
-                    width={20}
-                    height={26}
-                    fill="#1e1b4b"
-                    stroke="#f472b6"
-                    strokeWidth="1"
+                    x={b.x + b.width / 2 - 10} y={groundY - 26}
+                    width={20} height={26}
+                    fill="#1e1b4b" stroke="#f472b6" strokeWidth="1"
                   />
-
-                  {/* Maniquíes de Ropa en las Vitrinas */}
                   <g transform={`translate(${b.x + 12}, ${groundY - 22})`}>
                     <line x1="6" y1="0" x2="6" y2="20" stroke="#f472b6" strokeWidth="1" />
                     <path d="M 2,4 L 10,4 L 8,12 L 4,12 Z" fill="#e879f9" />
@@ -484,34 +546,19 @@ export default function CityAnimation() {
                     <line x1="6" y1="0" x2="6" y2="20" stroke="#38bdf8" strokeWidth="1" />
                     <path d="M 2,4 L 10,4 L 8,14 L 4,14 Z" fill="#38bdf8" />
                   </g>
-
-                  {/* Toldillo / Toldo Magenta Neón sobre la entrada */}
                   <polygon
                     points={`${b.x + 2},${facadeY} ${b.x + b.width - 2},${facadeY} ${b.x + b.width - 6},${facadeY + 8} ${b.x + 6},${facadeY + 8}`}
                     fill="#e879f9"
                   />
-
-                  {/* LETRERO NEÓN SOBRE LA ENTRADA */}
                   <g>
                     <rect
-                      x={b.x + 6}
-                      y={facadeY - 16}
-                      width={b.width - 12}
-                      height="14"
-                      rx="3"
-                      fill="#090d16"
-                      stroke="#e879f9"
-                      strokeWidth="1.5"
+                      x={b.x + 6} y={facadeY - 16}
+                      width={b.width - 12} height="14"
+                      rx="3" fill="#090d16" stroke="#e879f9" strokeWidth="1.5"
                     />
                     <text
-                      x={b.x + b.width / 2}
-                      y={facadeY - 8}
-                      fill="#fce7f3"
-                      fontSize="8"
-                      fontWeight="900"
-                      fontFamily="sans-serif"
-                      textAnchor="middle"
-                      dominantBaseline="middle"
+                      x={b.x + b.width / 2} y={facadeY - 8}
+                      fill="#fce7f3" fontSize="8" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle"
                     >
                       🛍️ NEON BOUTIQUE
                     </text>
@@ -519,64 +566,33 @@ export default function CityAnimation() {
                 </g>
               )}
 
-              {/* --------------------------------------------------------- */}
-              {/* 3. BAR & GASTROBAR (GOTHAM BAR & LOUNGE) */}
-              {/* --------------------------------------------------------- */}
+              {/* 3. BAR & GASTROBAR */}
               {b.establishment?.type === 'bar' && (
                 <g>
-                  {/* Fachada Gastrobar Oscura y Calida */}
                   <rect
-                    x={b.x + 4}
-                    y={facadeY}
-                    width={b.width - 8}
-                    height={facadeH}
-                    fill="#1e1035"
-                    stroke="#c084fc"
-                    strokeWidth="1.5"
-                    rx="3"
+                    x={b.x + 4} y={facadeY}
+                    width={b.width - 8} height={facadeH}
+                    fill="#1e1035" stroke="#c084fc" strokeWidth="1.5" rx="3"
                   />
-
-                  {/* Entrada Arqueada de Bar con Luz Cálida Púrpura */}
                   <path
                     d={`M ${b.x + b.width / 2 - 12},${groundY} L ${b.x + b.width / 2 - 12},${groundY - 18} A 12,12 0 0,1 ${b.x + b.width / 2 + 12},${groundY - 18} L ${b.x + b.width / 2 + 12},${groundY} Z`}
-                    fill="#3b0764"
-                    stroke="#a855f7"
-                    strokeWidth="1.5"
+                    fill="#3b0764" stroke="#a855f7" strokeWidth="1.5"
                   />
-
-                  {/* Farol / Lámpara de Pared Encendida a los lados */}
                   <circle cx={b.x + 12} cy={groundY - 18} r="3" fill="#fde047" />
                   <circle cx={b.x + b.width - 12} cy={groundY - 18} r="3" fill="#fde047" />
-
-                  {/* Ícono Neón Coctelera sobre la Entrada */}
                   <polygon
                     points={`${b.x + b.width / 2 - 5},${facadeY + 4} ${b.x + b.width / 2 + 5},${facadeY + 4} ${b.x + b.width / 2},${facadeY + 12}`}
-                    fill="none"
-                    stroke="#22d3ee"
-                    strokeWidth="1.5"
+                    fill="none" stroke="#22d3ee" strokeWidth="1.5"
                   />
-
-                  {/* LETRERO NEÓN DEL BAR SOBRE LA ENTRADA */}
                   <g>
                     <rect
-                      x={b.x + 4}
-                      y={facadeY - 16}
-                      width={b.width - 8}
-                      height="14"
-                      rx="3"
-                      fill="#090d16"
-                      stroke="#c084fc"
-                      strokeWidth="1.5"
+                      x={b.x + 4} y={facadeY - 16}
+                      width={b.width - 8} height="14"
+                      rx="3" fill="#090d16" stroke="#c084fc" strokeWidth="1.5"
                     />
                     <text
-                      x={b.x + b.width / 2}
-                      y={facadeY - 8}
-                      fill="#f3e8ff"
-                      fontSize="8"
-                      fontWeight="900"
-                      fontFamily="sans-serif"
-                      textAnchor="middle"
-                      dominantBaseline="middle"
+                      x={b.x + b.width / 2} y={facadeY - 8}
+                      fill="#f3e8ff" fontSize="8" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle"
                     >
                       🍸 GOTHAM BAR & LOUNGE
                     </text>
@@ -584,57 +600,32 @@ export default function CityAnimation() {
                 </g>
               )}
 
-              {/* --------------------------------------------------------- */}
-              {/* 4. SALUD & SEGUROS (AION HEALTH) */}
-              {/* --------------------------------------------------------- */}
+              {/* 4. SALUD & SEGUROS */}
               {b.establishment?.type === 'health' && (
                 <g>
                   <rect
-                    x={b.x + 4}
-                    y={facadeY}
-                    width={b.width - 8}
-                    height={facadeH}
-                    fill="#022c22"
-                    stroke="#4ade80"
-                    strokeWidth="1.5"
-                    rx="3"
+                    x={b.x + 4} y={facadeY}
+                    width={b.width - 8} height={facadeH}
+                    fill="#022c22" stroke="#4ade80" strokeWidth="1.5" rx="3"
                   />
-                  {/* Puerta Automática de Vidrio */}
                   <rect
-                    x={b.x + b.width / 2 - 10}
-                    y={groundY - 26}
-                    width={20}
-                    height={26}
-                    fill="#064e3b"
-                    stroke="#22c55e"
-                    strokeWidth="1"
+                    x={b.x + b.width / 2 - 10} y={groundY - 26}
+                    width={20} height={26}
+                    fill="#064e3b" stroke="#22c55e" strokeWidth="1"
                   />
-                  {/* Cruz Médica Neón Verde */}
                   <path
                     d={`M ${b.x + b.width / 2 - 2},${groundY - 18} h 4 v -4 h 4 v 4 h 4 v 4 h -4 v 4 h -4 v -4 h -4 Z`}
                     fill="#4ade80"
                   />
-                  {/* LETRERO NEÓN SOBRE LA ENTRADA */}
                   <g>
                     <rect
-                      x={b.x + 6}
-                      y={facadeY - 16}
-                      width={b.width - 12}
-                      height="14"
-                      rx="3"
-                      fill="#090d16"
-                      stroke="#4ade80"
-                      strokeWidth="1.5"
+                      x={b.x + 6} y={facadeY - 16}
+                      width={b.width - 12} height="14"
+                      rx="3" fill="#090d16" stroke="#4ade80" strokeWidth="1.5"
                     />
                     <text
-                      x={b.x + b.width / 2}
-                      y={facadeY - 8}
-                      fill="#dcfce7"
-                      fontSize="8"
-                      fontWeight="900"
-                      fontFamily="sans-serif"
-                      textAnchor="middle"
-                      dominantBaseline="middle"
+                      x={b.x + b.width / 2} y={facadeY - 8}
+                      fill="#dcfce7" fontSize="8" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle"
                     >
                       🏥 AION HEALTHCARE
                     </text>
@@ -642,61 +633,36 @@ export default function CityAnimation() {
                 </g>
               )}
 
-              {/* --------------------------------------------------------- */}
-              {/* 5. LEGAL TECH (LEGAL TECH LABS) */}
-              {/* --------------------------------------------------------- */}
+              {/* 5. LEGAL TECH */}
               {b.establishment?.type === 'legal' && (
                 <g>
                   <rect
-                    x={b.x + 4}
-                    y={facadeY}
-                    width={b.width - 8}
-                    height={facadeH}
-                    fill="#17120a"
-                    stroke="#fde047"
-                    strokeWidth="1.5"
-                    rx="3"
+                    x={b.x + 4} y={facadeY}
+                    width={b.width - 8} height={facadeH}
+                    fill="#17120a" stroke="#fde047" strokeWidth="1.5" rx="3"
                   />
-                  {/* Columnas de la entrada legal */}
                   <rect x={b.x + 10} y={facadeY + 6} width="4" height={facadeH - 6} fill="#eab308" />
                   <rect x={b.x + b.width - 14} y={facadeY + 6} width="4" height={facadeH - 6} fill="#eab308" />
                   <rect
-                    x={b.x + b.width / 2 - 8}
-                    y={groundY - 24}
-                    width={16}
-                    height={24}
-                    fill="#422006"
-                    stroke="#fde047"
-                    strokeWidth="1"
+                    x={b.x + b.width / 2 - 8} y={groundY - 24}
+                    width={16} height={24}
+                    fill="#422006" stroke="#fde047" strokeWidth="1"
                   />
-                  {/* LETRERO NEÓN SOBRE LA ENTRADA */}
                   <g>
                     <rect
-                      x={b.x + 4}
-                      y={facadeY - 16}
-                      width={b.width - 8}
-                      height="14"
-                      rx="3"
-                      fill="#090d16"
-                      stroke="#fde047"
-                      strokeWidth="1.5"
+                      x={b.x + 4} y={facadeY - 16}
+                      width={b.width - 8} height="14"
+                      rx="3" fill="#090d16" stroke="#fde047" strokeWidth="1.5"
                     />
                     <text
-                      x={b.x + b.width / 2}
-                      y={facadeY - 8}
-                      fill="#fef9c3"
-                      fontSize="8"
-                      fontWeight="900"
-                      fontFamily="sans-serif"
-                      textAnchor="middle"
-                      dominantBaseline="middle"
+                      x={b.x + b.width / 2} y={facadeY - 8}
+                      fill="#fef9c3" fontSize="8" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle"
                     >
                       ⚖️ LEGAL TECH LABS
                     </text>
                   </g>
                 </g>
               )}
-
             </g>
           );
         })}
@@ -707,7 +673,7 @@ export default function CityAnimation() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.8, duration: 0.8 }}
         >
-          <rect x="1110" y="70" width="6" height="290" fill="#c084fc" />
+          <rect x="1110" y="70" width="6" height="270" fill="#c084fc" />
           <rect x="1060" y="70" width="120" height="4" fill="#c084fc" />
           <line x1="1170" y1="74" x2="1170" y2="150" stroke="#f472b6" strokeWidth="1.5" />
           <motion.rect

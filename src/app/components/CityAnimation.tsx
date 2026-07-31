@@ -153,7 +153,7 @@ export default function CityAnimation() {
 
       {/* NAVE OVNI CON BANNER REMOLCADO 'ADS' AL ESTILO DE PUBLICIDAD AÉREA EN AVIONES */}
       <motion.g
-        className="absolute z-20 pointer-events-none"
+        className="absolute z-20 pointer-events-none scale-[0.7] sm:scale-100 origin-center"
         initial={{ x: '-25%', y: '6%' }}
         animate={{
           x: ['-25%', '125%'],

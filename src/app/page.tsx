@@ -110,7 +110,7 @@ export default function HomePage() {
             </motion.div>
           </div>
 
-          {/* STRIP DE MÉTRICAS CON CRISTAL LIGERO (PERMITE VER LOS LOCALES DE LA CIUDAD DEBAJO) */}
+          {/* STRIP DE MÉTRICAS CON CRISTAL LIGERO */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 max-w-4xl w-full mb-1">
             {t.hero.metrics.map((metric, idx) => (
               <motion.div
@@ -132,39 +132,51 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECCIÓN PERFIL / MARCA PERSONAL ("MI FOTO PNG CON FONDO WEB NEÓN") */}
-      <section className="relative w-full py-16 px-4 sm:px-6 bg-slate-950 border-b border-purple-900/30 overflow-hidden">
+      {/* SECCIÓN MARCA PERSONAL — FOTO ESTILO POLAROID/STICKER DESFACHADO Y DIVERTIDO */}
+      <section className="relative w-full py-14 px-4 sm:px-6 bg-slate-950 border-b border-purple-900/30 overflow-hidden">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-          {/* FOTO PNG SIN FONDO CON RETROILUMINACIÓN CIBERNÉTICA Y HALO NEÓN */}
+          
+          {/* TARJETA POLAROID / STICKER PEQUEÑA, INCLINADA Y MEMORABLE DE DANIEL */}
           <motion.div
             className="md:col-span-5 flex justify-center"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, rotate: -12, scale: 0.8 }}
+            whileInView={{ opacity: 1, rotate: -4, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            whileHover={{ rotate: 0, scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
           >
-            <div className="relative group w-72 h-80 sm:w-80 sm:h-96 md:w-96 md:h-[420px]">
-              <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-purple-600 via-cyan-400 to-fuchsia-500 blur-xl opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse" />
+            {/* TARJETA POLAROID POP-ART COMPACTA Y DESFADADA */}
+            <div className="relative group w-52 h-64 sm:w-60 sm:h-72 bg-slate-100 text-slate-900 rounded-2xl p-2.5 shadow-[0_20px_50px_rgba(34,211,238,0.3)] border-4 border-yellow-300 flex flex-col justify-between overflow-visible transform transition-transform duration-300">
               
-              <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-cyan-400/50 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-950/80 via-purple-950/90 to-slate-950 shadow-[0_0_40px_rgba(34,211,238,0.25)] flex flex-col justify-end">
-                <div className="absolute inset-0 opacity-25 bg-[linear-gradient(to_right,#38bdf8_1px,transparent_1px),linear-gradient(to_bottom,#38bdf8_1px,transparent_1px)] bg-[size:2rem_2rem]" />
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-cyan-400/20 rounded-full blur-2xl group-hover:bg-cyan-400/40 transition-all" />
+              {/* CINTA ADHESIVA NEÓN EN LA ESQUINA (ESTILO STICKER PEGAMIENTO) */}
+              <div className="absolute -top-3 left-4 bg-cyan-400 text-slate-950 font-black text-[10px] uppercase tracking-widest px-3 py-0.5 rounded-sm shadow-md -rotate-6 z-30 border border-slate-900">
+                YES, IT&apos;S ME! ✌️
+              </div>
 
-                <div className="relative w-full h-full z-10 flex items-end justify-center pt-4">
+              {/* MARCO DE FOTO POP-UP INTERNO */}
+              <div className="relative w-full h-[82%] bg-gradient-to-b from-purple-900 to-slate-950 rounded-xl overflow-hidden border-2 border-slate-900 flex items-end justify-center">
+                
+                {/* Halo retro de color neón en el fondo */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyan-400/40 via-purple-600/30 to-transparent" />
+                
+                {/* FOTO PNG SALIÉNDOSE DE LA PANTALLA */}
+                <div className="relative w-full h-full z-10">
                   <Image
                     src="/daniel-caicedo-seo.png"
                     alt="Daniel Caicedo — SEO & AI Automation Specialist"
                     fill
-                    className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]"
+                    className="object-contain object-bottom group-hover:scale-110 transition-transform duration-300"
                     priority
                   />
                 </div>
+              </div>
 
-                <div className="relative z-20 m-3 p-2 bg-slate-950/85 backdrop-blur-md rounded-xl border border-purple-500/40 text-center shadow-xl">
-                  <span className="text-xs font-mono font-bold text-cyan-300 tracking-widest">
-                    DANIEL CAICEDO • SEO & AI
-                  </span>
-                </div>
+              {/* PIE DE POLAROID MANUSCRITO / MANIFIESTO COOL */}
+              <div className="text-center pt-1 font-mono font-bold text-xs text-slate-950 tracking-tight flex items-center justify-between px-1">
+                <span>DANIEL C. ⚡</span>
+                <span className="text-[10px] bg-yellow-300 px-1.5 py-0.5 rounded text-slate-950 font-black">
+                  SEO & AI
+                </span>
               </div>
             </div>
           </motion.div>

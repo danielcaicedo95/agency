@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 import { LanguageProvider } from '@/app/context/LanguageContext';
-import LanguageSwitcher from '@/app/components/LanguageSwitcher';
 import JsonLd from '@/app/components/JsonLd';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -37,9 +36,8 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className="antialiased selection:bg-purple-900 selection:text-white">
+      <body className="antialiased selection:bg-cyan-500 selection:text-slate-950 bg-slate-950 text-slate-100">
         <LanguageProvider>
-          <LanguageSwitcher />
           <main className="min-h-screen">{children}</main>
         </LanguageProvider>
       </body>

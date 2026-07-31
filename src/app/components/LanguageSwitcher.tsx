@@ -7,29 +7,33 @@ export default function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className="fixed top-5 right-5 z-50 flex items-center gap-1 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-purple-200/50">
+    <div className="flex items-center gap-1 bg-slate-900/90 backdrop-blur-md p-1 rounded-full border border-purple-500/30 shadow-lg">
       <motion.button
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.92 }}
         onClick={() => setLanguage('es')}
-        className={`px-2.5 py-1 text-xs font-bold rounded-full transition-all flex items-center gap-1.5 ${
+        className={`px-2.5 py-1 text-xs font-mono font-bold rounded-full transition-all flex items-center gap-1.5 ${
           language === 'es'
-            ? 'bg-purple-900 text-white shadow-sm'
-            : 'text-gray-600 hover:text-purple-900'
+            ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-md'
+            : 'text-slate-400 hover:text-white'
         }`}
+        title="Cambiar a Español"
       >
-        <span>🇪🇸</span> ES
+        <span className="text-sm">🇪🇸</span>
+        <span>ES</span>
       </motion.button>
-      <span className="text-gray-300">|</span>
+
       <motion.button
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.92 }}
         onClick={() => setLanguage('en')}
-        className={`px-2.5 py-1 text-xs font-bold rounded-full transition-all flex items-center gap-1.5 ${
+        className={`px-2.5 py-1 text-xs font-mono font-bold rounded-full transition-all flex items-center gap-1.5 ${
           language === 'en'
-            ? 'bg-purple-900 text-white shadow-sm'
-            : 'text-gray-600 hover:text-purple-900'
+            ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-md'
+            : 'text-slate-400 hover:text-white'
         }`}
+        title="Switch to English"
       >
-        <span>🇺🇸</span> EN
+        <span className="text-sm">🇺🇸</span>
+        <span>EN</span>
       </motion.button>
     </div>
   );

@@ -20,13 +20,12 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-slate-950/80 border-b border-purple-500/20 shadow-2xl">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-cyan-400 p-0.5 group-hover:scale-105 transition-transform shadow-md shadow-cyan-500/20">
-            <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-black text-xs text-white">
-              DC
-            </div>
-          </div>
-          <span className="hidden sm:inline text-xs font-mono font-bold text-cyan-300 tracking-wider">
+        {/* LOGO 'DC' ORIGINAL EN FUENTE BUBBLE Y ESTILO LIMPIO */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <span className="logo font-logo text-3xl sm:text-4xl font-black text-cyan-300 tracking-tighter drop-shadow-[0_4px_12px_rgba(34,211,238,0.5)] group-hover:scale-110 transition-transform">
+            DC
+          </span>
+          <span className="hidden sm:inline text-xs font-mono font-bold text-slate-300 tracking-wider">
             SEO • AI ENGINE
           </span>
         </Link>

@@ -68,7 +68,8 @@ const AnimatedLetters = ({ phase }: { phase: string }): ReactElement => {
                   initial={{ y: -450, scale: 0.4, rotate: -15, opacity: 0 }}
                   animate={{
                     y: 0,
-                    scale: [0.4, 1.15, 1],
+                    scale: 1,
+
                     rotate: 0,
                     opacity: 1,
                     transition: {

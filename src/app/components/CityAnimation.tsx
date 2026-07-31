@@ -151,20 +151,20 @@ export default function CityAnimation() {
         />
       ))}
 
-      {/* NAVE OVNI CON BANNER REMOLCADO 'ADS' ONDULADO Y DINÁMICO */}
+      {/* NAVE OVNI CON BANNER REMOLCADO 'ADS' AL ESTILO DE PUBLICIDAD AÉREA EN AVIONES */}
       <motion.g
         className="absolute z-20 pointer-events-none"
         initial={{ x: '-25%', y: '6%' }}
         animate={{
           x: ['-25%', '125%'],
-          y: ['6%', '20%', '8%', '24%', '10%', '16%'],
+          y: ['6%', '18%', '8%', '22%', '10%', '15%'],
         }}
         transition={{
-          x: { duration: 20, repeat: Infinity, ease: 'linear' },
-          y: { duration: 20, repeat: Infinity, ease: 'easeInOut' },
+          x: { duration: 22, repeat: Infinity, ease: 'linear' },
+          y: { duration: 22, repeat: Infinity, ease: 'easeInOut' },
         }}
       >
-        <svg width="240" height="130" viewBox="0 0 240 130" className="overflow-visible">
+        <svg width="260" height="130" viewBox="-120 0 240 130" className="overflow-visible">
           {/* Rayo abductor emisor de luz */}
           <motion.polygon
             points="60,35 20,110 100,110"
@@ -189,7 +189,7 @@ export default function CityAnimation() {
           <circle cx="58" cy="27" r="1" fill="#000" />
           <circle cx="62" cy="27" r="1" fill="#000" />
 
-          {/* Platillo metálico */}
+          {/* Platillo metálico principal (Nave 100% visible sin tapar) */}
           <ellipse cx="60" cy="34" rx="42" ry="10" fill="#94a3b8" />
           <ellipse cx="60" cy="36" rx="46" ry="6" fill="#475569" />
 
@@ -206,57 +206,53 @@ export default function CityAnimation() {
             />
           ))}
 
-          {/* CUERDAS QUE CONECTAN LA PARTE TRASERA DE LA NAVE AL BANNER 'ADS' */}
-          <line x1="16" y1="36" x2="-10" y2="40" stroke="#38bdf8" strokeWidth="1.5" opacity="0.9" />
-          <line x1="16" y1="38" x2="-10" y2="52" stroke="#38bdf8" strokeWidth="1.5" opacity="0.9" />
+          {/* CUERDAS DE ACOPLE QUE SALEN DE LA PARTE TRASERA DE LA NAVE HACIA EL BANNER (ATÁS DE LA NAVE) */}
+          <line x1="14" y1="34" x2="-18" y2="27" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="3 2" opacity="0.9" />
+          <line x1="14" y1="36" x2="-18" y2="43" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="3 2" opacity="0.9" />
 
-          {/* BANNER LARGO REMOLCADO QUE ONDULA CON EL VIENTO (FÍSICA FLUIDA) */}
+          {/* MASTIL / BARRA RIGIDA DORSAL DEL BANNER DE PUBLICIDAD AÉREA */}
+          <line x1="-18" y1="24" x2="-18" y2="46" stroke="#fde047" strokeWidth="2.5" />
+
+          {/* BANNER AÉREO COMPACTO 'ADS' REMOLCADO ATRÁS CON FÍSICA ONDULANTE DE VIENTO */}
           <motion.g
-            transform="translate(-130, 24)"
             animate={{
-              rotate: [-4, 5, -3, 4, -4],
-              y: [0, 4, -2, 5, 0],
-              skewY: [-2, 3, -2],
+              rotate: [-3, 4, -2, 3, -3],
+              y: [0, 3, -2, 4, 0],
+              skewY: [-2, 2, -2],
             }}
             transition={{
-              duration: 2.2,
+              duration: 2,
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            style={{ transformOrigin: 'right center' }}
+            style={{ transformOrigin: '-18px 35px' }}
           >
-            {/* Cuerpo del banner textil flexible de neón (Largo: 115px) */}
+            {/* Cinta textil ondeante estilo banner publicitario de avión */}
             <path
-              d="M 0,10 Q 30,5 60,12 T 120,8 L 120,40 Q 60,34 30,42 T 0,38 Z"
+              d="M -92,26 Q -55,22 -18,25 L -18,45 Q -55,48 -92,44 Z"
               fill="#090d16"
+              fillOpacity="0.9"
               stroke="#22d3ee"
-              strokeWidth="2"
+              strokeWidth="1.5"
             />
 
-            {/* Borde neón brillante animado */}
-            <path
-              d="M 0,10 Q 30,5 60,12 T 120,8"
-              fill="none"
-              stroke="#f472b6"
-              strokeWidth="2"
-            />
-            <path
-              d="M 0,38 Q 30,42 60,34 T 120,40"
-              fill="none"
-              stroke="#fde047"
-              strokeWidth="2"
-            />
+            {/* Borde neón superior e inferior de la tela del banner */}
+            <path d="M -92,26 Q -55,22 -18,25" fill="none" stroke="#f472b6" strokeWidth="1.5" />
+            <path d="M -92,44 Q -55,48 -18,45" fill="none" stroke="#fde047" strokeWidth="1.5" />
 
-            {/* TEXTO 'ADS' SOLAMENTE - GRANDE, CLARO Y LLAMATIVO */}
+            {/* Colas/Cintas sueltas al final del banner que flamean en el viento */}
+            <path d="M -92,26 L -104,22 L -97,35 L -106,44 L -92,44 Z" fill="#e879f9" opacity="0.8" />
+
+            {/* TEXTO 'ADS' LIMPIO, CLARO Y PERFECTAMENTE LEGIBLE */}
             <text
-              x="60"
-              y="29"
+              x="-55"
+              y="38"
               fill="#38bdf8"
-              fontSize="18"
+              fontSize="14"
               fontWeight="900"
               fontFamily="sans-serif"
+              letterSpacing="3"
               textAnchor="middle"
-              letterSpacing="4"
               className="drop-shadow-[0_2px_8px_rgba(34,211,238,0.9)]"
             >
               ADS
@@ -492,7 +488,6 @@ export default function CityAnimation() {
               {/* 1. CONCESIONARIO DE CARROS DESTACADO (APEX CYBERMOTORS) */}
               {b.establishment?.type === 'dealership' && (
                 <g>
-                  {/* Gran Showroom de Cristal Templado Iluminado */}
                   <rect
                     x={b.x + 4} y={facadeY - 2}
                     width={b.width - 8} height={facadeH + 2}
@@ -504,7 +499,6 @@ export default function CityAnimation() {
                     fill="url(#showroomGlow)" fillOpacity="0.6"
                   />
 
-                  {/* Puertas de Cristal Deslizante */}
                   <rect
                     x={b.x + b.width / 2 - 14} y={groundY - 30}
                     width={28} height={30}
@@ -512,7 +506,6 @@ export default function CityAnimation() {
                   />
                   <line x1={b.x + b.width / 2} y1={groundY - 30} x2={b.x + b.width / 2} y2={groundY} stroke="#38bdf8" strokeWidth="1.5" />
 
-                  {/* AUTO DEPORTIVO CIBERNÉTICO #1 (ROJO NEÓN) */}
                   <g transform={`translate(${b.x + 10}, ${groundY - 15})`}>
                     <path d="M 0,10 L 6,4 L 20,2 L 30,5 L 38,10 Z" fill="#ef4444" />
                     <path d="M 8,4 L 18,3 L 24,5 L 20,7 Z" fill="#67e8f9" opacity="0.9" />
@@ -521,7 +514,6 @@ export default function CityAnimation() {
                     <circle cx="36" cy="9" r="1.5" fill="#fde047" />
                   </g>
 
-                  {/* AUTO DEPORTIVO CIBERNÉTICO #2 (CIAN NEÓN) */}
                   <g transform={`translate(${b.x + 92}, ${groundY - 15})`}>
                     <path d="M 0,10 L 6,4 L 20,2 L 30,5 L 38,10 Z" fill="#38bdf8" />
                     <path d="M 8,4 L 18,3 L 24,5 L 20,7 Z" fill="#f472b6" opacity="0.9" />
@@ -530,7 +522,6 @@ export default function CityAnimation() {
                     <circle cx="36" cy="9" r="1.5" fill="#22d3ee" />
                   </g>
 
-                  {/* LETRERO NEÓN ENCIMA DE LA PUERTA */}
                   <g>
                     <rect
                       x={b.x + 8} y={facadeY - 20}
@@ -689,7 +680,7 @@ export default function CityAnimation() {
           );
         })}
 
-        {/* Grúa de construcción animada */}
+        {/* Grúa de construcción animada en el extremo derecho */}
         <motion.g
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}

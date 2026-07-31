@@ -33,7 +33,7 @@ export default function CityAnimation() {
     ];
 
     const establishmentMap: { [key: number]: Establishment } = {
-      1: {
+      0: {
         type: 'dealership',
         name: 'APEX CYBERMOTORS',
         subname: 'LUXURY SHOWROOM',
@@ -82,10 +82,10 @@ export default function CityAnimation() {
     while (xPos < 1400) {
       const estab = establishmentMap[id];
       const w = estab
-        ? (estab.type === 'dealership' ? 140 : 105)
+        ? (estab.type === 'dealership' ? 150 : 110)
         : 38 + Math.floor((id * 37 + 13) % 48);
 
-      const h = 130 + Math.floor((id * 73 + 29) % 210);
+      const h = 135 + Math.floor((id * 73 + 29) % 205);
       const gap = 6 + Math.floor((id * 11) % 4);
       const color = colors[id % colors.length];
       const hasAntenna = id % 3 === 0;
@@ -151,21 +151,21 @@ export default function CityAnimation() {
         />
       ))}
 
-      {/* OVNI / NAVE EXTRATERRESTRE CON LETRERO PUBLICITARIO NEÓN 'ADS' */}
+      {/* NAVE OVNI CON BANNER REMOLCADO 'ADS' ONDULADO Y DINÁMICO */}
       <motion.g
         className="absolute z-20 pointer-events-none"
-        initial={{ x: '-25%', y: '5%' }}
+        initial={{ x: '-25%', y: '6%' }}
         animate={{
           x: ['-25%', '125%'],
-          y: ['5%', '22%', '8%', '28%', '10%', '18%'],
+          y: ['6%', '20%', '8%', '24%', '10%', '16%'],
         }}
         transition={{
-          x: { duration: 22, repeat: Infinity, ease: 'linear' },
-          y: { duration: 22, repeat: Infinity, ease: 'easeInOut' },
+          x: { duration: 20, repeat: Infinity, ease: 'linear' },
+          y: { duration: 20, repeat: Infinity, ease: 'easeInOut' },
         }}
       >
-        <svg width="180" height="140" viewBox="0 0 180 140" className="overflow-visible">
-          {/* Rayo abductor emisor */}
+        <svg width="240" height="130" viewBox="0 0 240 130" className="overflow-visible">
+          {/* Rayo abductor emisor de luz */}
           <motion.polygon
             points="60,35 20,110 100,110"
             fill="url(#ufoBeamGrad)"
@@ -206,22 +206,62 @@ export default function CityAnimation() {
             />
           ))}
 
-          {/* BANNER / LETRERO PUBLICITARIO HOLOGRÁFICO 'GOOGLE ADS' REMOLCADO POR LA NAVE */}
-          <g transform="translate(105, 18)">
-            {/* Cable de acople flotante */}
-            <line x1="-5" y1="16" x2="0" y2="16" stroke="#22d3ee" strokeWidth="1.5" strokeDasharray="2 2" />
-            
-            {/* Marco de letrero publicitario Neón ADS */}
-            <rect x="0" y="4" width="70" height="24" rx="4" fill="#090d16" stroke="#f472b6" strokeWidth="1.5" />
-            
-            {/* Texto neón parpadeante GOOGLE ADS */}
-            <text x="35" y="15" fill="#38bdf8" fontSize="8" fontWeight="900" fontFamily="sans-serif" textAnchor="middle">
-              ⚡ GOOGLE ADS
+          {/* CUERDAS QUE CONECTAN LA PARTE TRASERA DE LA NAVE AL BANNER 'ADS' */}
+          <line x1="16" y1="36" x2="-10" y2="40" stroke="#38bdf8" strokeWidth="1.5" opacity="0.9" />
+          <line x1="16" y1="38" x2="-10" y2="52" stroke="#38bdf8" strokeWidth="1.5" opacity="0.9" />
+
+          {/* BANNER LARGO REMOLCADO QUE ONDULA CON EL VIENTO (FÍSICA FLUIDA) */}
+          <motion.g
+            transform="translate(-130, 24)"
+            animate={{
+              rotate: [-4, 5, -3, 4, -4],
+              y: [0, 4, -2, 5, 0],
+              skewY: [-2, 3, -2],
+            }}
+            transition={{
+              duration: 2.2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            style={{ transformOrigin: 'right center' }}
+          >
+            {/* Cuerpo del banner textil flexible de neón (Largo: 115px) */}
+            <path
+              d="M 0,10 Q 30,5 60,12 T 120,8 L 120,40 Q 60,34 30,42 T 0,38 Z"
+              fill="#090d16"
+              stroke="#22d3ee"
+              strokeWidth="2"
+            />
+
+            {/* Borde neón brillante animado */}
+            <path
+              d="M 0,10 Q 30,5 60,12 T 120,8"
+              fill="none"
+              stroke="#f472b6"
+              strokeWidth="2"
+            />
+            <path
+              d="M 0,38 Q 30,42 60,34 T 120,40"
+              fill="none"
+              stroke="#fde047"
+              strokeWidth="2"
+            />
+
+            {/* TEXTO 'ADS' SOLAMENTE - GRANDE, CLARO Y LLAMATIVO */}
+            <text
+              x="60"
+              y="29"
+              fill="#38bdf8"
+              fontSize="18"
+              fontWeight="900"
+              fontFamily="sans-serif"
+              textAnchor="middle"
+              letterSpacing="4"
+              className="drop-shadow-[0_2px_8px_rgba(34,211,238,0.9)]"
+            >
+              ADS
             </text>
-            <text x="35" y="23" fill="#fde047" fontSize="6" fontWeight="800" fontFamily="sans-serif" textAnchor="middle">
-              CAMPAIGNS 🚀
-            </text>
-          </g>
+          </motion.g>
         </svg>
       </motion.g>
 
@@ -231,21 +271,18 @@ export default function CityAnimation() {
         className="absolute bottom-0 left-0 w-full h-[90%] md:h-[95%]"
         preserveAspectRatio="xMidYMax slice"
       >
-        {/* ========================================================= */}
-        {/* CALLE REALISTA DE ASFALTO Y PINTURA NEÓN */}
-        {/* ========================================================= */}
-        {/* Asfalto */}
+        {/* CALLE REALISTA DE ASFALTO */}
         <rect x="0" y="340" width="1200" height="20" fill="#090d16" />
         <rect x="0" y="340" width="1200" height="2" fill="#1e293b" />
         
-        {/* Línea divisoria de carril amarilla discontinua */}
+        {/* Línea divisoria amarilla de carril */}
         <line
           x1="0" y1="350" x2="1200" y2="350"
           stroke="#fde047" strokeWidth="1.5"
           strokeDasharray="16 12" strokeOpacity="0.8"
         />
 
-        {/* Pasos de peatones (Zebra crosswalk) */}
+        {/* Pasos de peatones */}
         {[80, 520, 960].map((cx, i) => (
           <g key={`cross-${i}`}>
             {[...Array(6)].map((_, zi) => (
@@ -262,27 +299,19 @@ export default function CityAnimation() {
           </g>
         ))}
 
-        {/* Línea neón de bordillo de acera */}
+        {/* Bordillo cian */}
         <line x1="0" y1="338" x2="1200" y2="338" stroke="#38bdf8" strokeWidth="1.5" />
 
-        {/* ========================================================= */}
-        {/* LÁMPARAS DE ALUMBRADO PÚBLICO (CON 1 LÁMPARA DAÑADA TITILANDO) */}
-        {/* ========================================================= */}
+        {/* LÁMPARAS DE ALUMBRADO PÚBLICO (LAMP EN X=580 DAÑADA Y TITILANDO) */}
         {[100, 320, 580, 820, 1040].map((lx, idx) => {
-          const isDamaged = idx === 2; // La lámpara en x=580 está dañada y titila
+          const isDamaged = idx === 2;
           return (
             <g key={`lamp-${idx}`}>
-              {/* Poste metálico futurista */}
               <line x1={lx} y1="338" x2={lx} y2="295" stroke="#475569" strokeWidth="2.5" />
-              {/* Brazo curvo */}
               <path d={`M ${lx},295 Q ${lx + 8},288 ${lx + 14},290`} fill="none" stroke="#64748b" strokeWidth="2" />
-              
-              {/* Cabeza de la luminaria LED */}
               <ellipse cx={lx + 14} cy={290} rx="4" ry="2" fill="#0f172a" stroke="#38bdf8" strokeWidth="1" />
 
-              {/* CONO DE LUZ DE LA LÁMPARA */}
               {isDamaged ? (
-                // LÁMPARA DAÑADA / PARPADEO IRREGULAR
                 <g>
                   <motion.polygon
                     points={`${lx + 14},291 ${lx - 12},340 ${lx + 40},340`}
@@ -303,7 +332,6 @@ export default function CityAnimation() {
                   />
                 </g>
               ) : (
-                // LÁMPARA NORMAL FUNCIONAL
                 <g>
                   <polygon
                     points={`${lx + 14},291 ${lx - 12},340 ${lx + 40},340`}
@@ -324,16 +352,16 @@ export default function CityAnimation() {
           </linearGradient>
         </defs>
 
-        {/* BUILDINGS RENDER */}
+        {/* EDIFICIOS Y FACHADAS */}
         {buildings.map((b) => {
           const buildingY = 338 - b.height;
           const groundY = 338;
-          const facadeH = 40;
+          const facadeH = 42;
           const facadeY = groundY - facadeH;
 
           return (
             <g key={b.id}>
-              {/* Láser de construcción que se eleva */}
+              {/* Láser de construcción */}
               <motion.line
                 x1={b.x + b.width / 2}
                 y1="338"
@@ -420,14 +448,9 @@ export default function CityAnimation() {
                 />
               ))}
 
-              {/* ========================================================= */}
-              {/* PUERTAS Y FACHADAS ULTRA MODERNAS CON SENSORES Y NEÓN */}
-              {/* ========================================================= */}
-
-              {/* PUERTA MODERNA FUTURISTA DE CRISTAL PARA EDIFICIOS REGULARES */}
+              {/* PUERTA MODERNA DE CRISTAL PARA EDIFICIOS REGULARES */}
               {!b.establishment && b.width >= 35 && (
                 <g>
-                  {/* Marco exterior de portal neón cian */}
                   <rect
                     x={b.x + b.width / 2 - 9}
                     y={groundY - 25}
@@ -438,7 +461,6 @@ export default function CityAnimation() {
                     strokeWidth="1.5"
                     rx="2"
                   />
-                  {/* Paneles de vidrio deslizable con resplandor */}
                   <rect
                     x={b.x + b.width / 2 - 7}
                     y={groundY - 23}
@@ -459,7 +481,6 @@ export default function CityAnimation() {
                     stroke="#67e8f9"
                     strokeWidth="0.5"
                   />
-                  {/* Barra LED sensórica de acceso arriba de la puerta */}
                   <line
                     x1={b.x + b.width / 2 - 7} y1={groundY - 24}
                     x2={b.x + b.width / 2 + 7} y2={groundY - 24}
@@ -468,55 +489,56 @@ export default function CityAnimation() {
                 </g>
               )}
 
-              {/* 1. CONCESIONARIO DE CARROS (APEX CYBERMOTORS) */}
+              {/* 1. CONCESIONARIO DE CARROS DESTACADO (APEX CYBERMOTORS) */}
               {b.establishment?.type === 'dealership' && (
                 <g>
+                  {/* Gran Showroom de Cristal Templado Iluminado */}
                   <rect
-                    x={b.x + 4} y={facadeY}
-                    width={b.width - 8} height={facadeH}
-                    fill="#030712" stroke="#22d3ee" strokeWidth="2" rx="4"
+                    x={b.x + 4} y={facadeY - 2}
+                    width={b.width - 8} height={facadeH + 2}
+                    fill="#030712" stroke="#22d3ee" strokeWidth="2.5" rx="4"
                   />
                   <rect
-                    x={b.x + 6} y={facadeY + 2}
-                    width={b.width - 12} height={facadeH - 4}
-                    fill="url(#showroomGlow)" fillOpacity="0.4"
+                    x={b.x + 6} y={facadeY}
+                    width={b.width - 12} height={facadeH - 2}
+                    fill="url(#showroomGlow)" fillOpacity="0.6"
                   />
 
-                  {/* Puertas de Cristal Deslizante Modernas */}
+                  {/* Puertas de Cristal Deslizante */}
                   <rect
-                    x={b.x + b.width / 2 - 12} y={groundY - 28}
-                    width={24} height={28}
+                    x={b.x + b.width / 2 - 14} y={groundY - 30}
+                    width={28} height={30}
                     fill="#0f172a" stroke="#38bdf8" strokeWidth="1.5"
                   />
-                  <line x1={b.x + b.width / 2} y1={groundY - 28} x2={b.x + b.width / 2} y2={groundY} stroke="#38bdf8" strokeWidth="1" />
+                  <line x1={b.x + b.width / 2} y1={groundY - 30} x2={b.x + b.width / 2} y2={groundY} stroke="#38bdf8" strokeWidth="1.5" />
 
-                  {/* AUTO DEPORTIVO CIBERNÉTICO #1 */}
-                  <g transform={`translate(${b.x + 12}, ${groundY - 14})`}>
-                    <path d="M 0,10 L 6,4 L 18,2 L 28,5 L 36,10 Z" fill="#ef4444" />
-                    <path d="M 8,4 L 16,3 L 22,5 L 18,7 Z" fill="#67e8f9" opacity="0.9" />
-                    <circle cx="8" cy="11" r="3.5" fill="#090d16" stroke="#22d3ee" strokeWidth="1.5" />
-                    <circle cx="28" cy="11" r="3.5" fill="#090d16" stroke="#22d3ee" strokeWidth="1.5" />
-                    <circle cx="34" cy="9" r="1.5" fill="#fde047" />
+                  {/* AUTO DEPORTIVO CIBERNÉTICO #1 (ROJO NEÓN) */}
+                  <g transform={`translate(${b.x + 10}, ${groundY - 15})`}>
+                    <path d="M 0,10 L 6,4 L 20,2 L 30,5 L 38,10 Z" fill="#ef4444" />
+                    <path d="M 8,4 L 18,3 L 24,5 L 20,7 Z" fill="#67e8f9" opacity="0.9" />
+                    <circle cx="9" cy="11" r="3.5" fill="#090d16" stroke="#22d3ee" strokeWidth="1.5" />
+                    <circle cx="30" cy="11" r="3.5" fill="#090d16" stroke="#22d3ee" strokeWidth="1.5" />
+                    <circle cx="36" cy="9" r="1.5" fill="#fde047" />
                   </g>
 
-                  {/* AUTO DEPORTIVO CIBERNÉTICO #2 */}
-                  <g transform={`translate(${b.x + 82}, ${groundY - 14})`}>
-                    <path d="M 0,10 L 6,4 L 18,2 L 28,5 L 36,10 Z" fill="#38bdf8" />
-                    <path d="M 8,4 L 16,3 L 22,5 L 18,7 Z" fill="#f472b6" opacity="0.9" />
-                    <circle cx="8" cy="11" r="3.5" fill="#090d16" stroke="#e879f9" strokeWidth="1.5" />
-                    <circle cx="28" cy="11" r="3.5" fill="#090d16" stroke="#e879f9" strokeWidth="1.5" />
-                    <circle cx="34" cy="9" r="1.5" fill="#22d3ee" />
+                  {/* AUTO DEPORTIVO CIBERNÉTICO #2 (CIAN NEÓN) */}
+                  <g transform={`translate(${b.x + 92}, ${groundY - 15})`}>
+                    <path d="M 0,10 L 6,4 L 20,2 L 30,5 L 38,10 Z" fill="#38bdf8" />
+                    <path d="M 8,4 L 18,3 L 24,5 L 20,7 Z" fill="#f472b6" opacity="0.9" />
+                    <circle cx="9" cy="11" r="3.5" fill="#090d16" stroke="#e879f9" strokeWidth="1.5" />
+                    <circle cx="30" cy="11" r="3.5" fill="#090d16" stroke="#e879f9" strokeWidth="1.5" />
+                    <circle cx="36" cy="9" r="1.5" fill="#22d3ee" />
                   </g>
 
                   {/* LETRERO NEÓN ENCIMA DE LA PUERTA */}
                   <g>
                     <rect
-                      x={b.x + 8} y={facadeY - 18}
-                      width={b.width - 16} height="16"
-                      rx="3" fill="#090d16" stroke="#22d3ee" strokeWidth="2"
+                      x={b.x + 8} y={facadeY - 20}
+                      width={b.width - 16} height="18"
+                      rx="4" fill="#090d16" stroke="#22d3ee" strokeWidth="2"
                     />
                     <text
-                      x={b.x + b.width / 2} y={facadeY - 8}
+                      x={b.x + b.width / 2} y={facadeY - 10}
                       fill="#e0f2fe" fontSize="9" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle"
                     >
                       ⚡ APEX CYBERMOTORS ⚡
@@ -667,7 +689,7 @@ export default function CityAnimation() {
           );
         })}
 
-        {/* Grúa de construcción animada en el extremo derecho */}
+        {/* Grúa de construcción animada */}
         <motion.g
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}

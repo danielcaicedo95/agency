@@ -48,30 +48,30 @@ export default function HomePage() {
         <Navbar />
       </div>
 
-      {/* PRIMERA PANTALLA (HERO LIMPIO Y ADAPTADO A MÓVIL) */}
-      <section className="relative w-full h-[88vh] sm:h-[90vh] flex flex-col justify-between overflow-hidden shadow-2xl border-b border-purple-900/40">
-        {/* LA CIUDAD VIVA EN EL FONDO */}
+      {/* PRIMERA PANTALLA (HERO EQUILIBRADO CON VISTA LIMPIA A LA CIUDAD Y FACHADAS) */}
+      <section className="relative w-full min-h-[88vh] sm:min-h-[90vh] flex flex-col justify-between overflow-hidden shadow-2xl border-b border-purple-900/40">
+        {/* LA CIUDAD VIVA EN EL FONDO CON ALTA VISIBILIDAD */}
         <div className="absolute inset-0 z-0">
           <CityAnimation />
         </div>
 
-        {/* CONTENIDO SUPERPUESTO (LIGERO Y DESPEJADO EN MÓVIL) */}
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-4 sm:pt-8 pb-8 w-full flex-1 flex flex-col justify-between items-center text-center">
+        {/* CONTENIDO SUPERPUESTO (VIDRIO TRASLÚCIDO PARA NO TAPAR LA CIUDAD Y FACHADAS) */}
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-6 w-full flex-1 flex flex-col justify-between items-center text-center">
           {/* BADGE SALUDO */}
           <motion.div
-            className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-slate-950/90 backdrop-blur-md border border-cyan-400/40 text-cyan-200 font-bold text-[11px] sm:text-sm tracking-wide uppercase shadow-xl mt-2"
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-950/70 backdrop-blur-md border border-cyan-400/40 text-cyan-200 font-bold text-[11px] sm:text-xs tracking-wide uppercase shadow-xl mt-1"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? -20 : 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             {t.hero.greeting} {t.hero.name}
           </motion.div>
 
-          {/* TITULAR PRINCIPAL - TAMAÑO LIMPIO EN MÓVIL */}
+          {/* TITULAR PRINCIPAL - CONTRASTE LIMPIO */}
           <div className="space-y-3 sm:space-y-4 max-w-4xl my-auto px-2">
             <motion.h1
-              className="text-3xl sm:text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-cyan-200 tracking-tight leading-tight sm:leading-tight drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)]"
+              className="text-3xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-cyan-200 tracking-tight leading-tight drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: isLoading ? 0 : 1, scale: isLoading ? 0.95 : 1 }}
               transition={{ duration: 0.7, delay: 0.3 }}
@@ -80,7 +80,7 @@ export default function HomePage() {
             </motion.h1>
 
             <motion.p
-              className="max-w-2xl mx-auto text-xs sm:text-lg text-purple-100 font-medium leading-relaxed drop-shadow-md bg-slate-950/80 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-purple-500/30"
+              className="max-w-xl mx-auto text-xs sm:text-base text-purple-100 font-medium leading-relaxed drop-shadow-md bg-slate-950/60 backdrop-blur-sm p-3 rounded-xl border border-purple-500/20"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
@@ -97,30 +97,30 @@ export default function HomePage() {
             >
               <Link
                 href="/work"
-                className="px-5 py-2.5 sm:px-7 sm:py-3.5 bg-gradient-to-r from-purple-600 to-cyan-500 text-white text-xs sm:text-base font-bold rounded-xl shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all"
+                className="px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-purple-600 to-cyan-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all"
               >
                 {t.hero.ctaWork} →
               </Link>
               <Link
                 href="/contact"
-                className="px-5 py-2.5 sm:px-7 sm:py-3.5 bg-slate-900/90 text-cyan-300 border border-cyan-400/40 text-xs sm:text-base font-bold rounded-xl shadow-md hover:bg-slate-800 hover:border-cyan-300 transition-all backdrop-blur-md"
+                className="px-5 py-2.5 sm:px-6 sm:py-3 bg-slate-950/70 text-cyan-300 border border-cyan-400/40 text-xs sm:text-sm font-bold rounded-xl shadow-md hover:bg-slate-900 transition-all backdrop-blur-md"
               >
                 {t.hero.ctaContact}
               </Link>
             </motion.div>
           </div>
 
-          {/* STRIP DE MÉTRICAS - COMPACTO EN MÓVIL */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 max-w-4xl w-full">
+          {/* STRIP DE MÉTRICAS CON CRISTAL LIGERO (PERMITE VER LOS LOCALES DE LA CIUDAD DEBAJO) */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 max-w-4xl w-full mb-1">
             {t.hero.metrics.map((metric, idx) => (
               <motion.div
                 key={idx}
-                className="p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-950/85 backdrop-blur-md border border-purple-500/40 text-center shadow-xl"
+                className="p-2 sm:p-3 rounded-xl bg-slate-950/50 backdrop-blur-sm border border-purple-500/20 text-center shadow-lg hover:bg-slate-950/70 transition-all"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 20 : 0 }}
                 transition={{ delay: 0.6 + idx * 0.1, duration: 0.6 }}
               >
-                <div className="text-lg sm:text-2xl font-black text-cyan-300">
+                <div className="text-base sm:text-xl font-black text-cyan-300">
                   {metric.value}
                 </div>
                 <div className="text-[10px] sm:text-xs font-medium text-slate-300 mt-0.5 leading-tight">
@@ -144,19 +144,12 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
           >
             <div className="relative group w-72 h-80 sm:w-80 sm:h-96 md:w-96 md:h-[420px]">
-              {/* Resplandor neón animado de fondo */}
               <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-purple-600 via-cyan-400 to-fuchsia-500 blur-xl opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse" />
               
-              {/* Tarjeta contenedora con fondo nocturno temático de la web */}
               <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-cyan-400/50 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-950/80 via-purple-950/90 to-slate-950 shadow-[0_0_40px_rgba(34,211,238,0.25)] flex flex-col justify-end">
-                
-                {/* Patrón de líneas cibernéticas de fondo */}
                 <div className="absolute inset-0 opacity-25 bg-[linear-gradient(to_right,#38bdf8_1px,transparent_1px),linear-gradient(to_bottom,#38bdf8_1px,transparent_1px)] bg-[size:2rem_2rem]" />
-                
-                {/* Halo brillante centrado detrás de la persona */}
                 <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-cyan-400/20 rounded-full blur-2xl group-hover:bg-cyan-400/40 transition-all" />
 
-                {/* IMAGEN PNG SIN FONDO INTEGRADA EN EL AMBIENTE DE LA WEB */}
                 <div className="relative w-full h-full z-10 flex items-end justify-center pt-4">
                   <Image
                     src="/daniel-caicedo-seo.png"
@@ -167,7 +160,6 @@ export default function HomePage() {
                   />
                 </div>
 
-                {/* Insignia de nombre en la base */}
                 <div className="relative z-20 m-3 p-2 bg-slate-950/85 backdrop-blur-md rounded-xl border border-purple-500/40 text-center shadow-xl">
                   <span className="text-xs font-mono font-bold text-cyan-300 tracking-widest">
                     DANIEL CAICEDO • SEO & AI
@@ -199,7 +191,6 @@ export default function HomePage() {
                 : 'With over 6 years of experience optimizing enterprise web ecosystems and e-commerce (Shopify Plus, VTEX), I combine Technical SEO precision with AI Automation and Google Ads SEM to turn organic traffic into sustainable revenue.'}
             </p>
 
-            {/* BADGES DE TECNOLOGÍAS CLAVE */}
             <div className="flex flex-wrap justify-center md:justify-start gap-2 pt-1">
               {['SEO Técnico', 'Google Ads SEM', 'IA & Prompting', 'GA4 & GTM', 'Shopify Plus', 'VTEX'].map((badge, idx) => (
                 <span
@@ -211,7 +202,6 @@ export default function HomePage() {
               ))}
             </div>
 
-            {/* BOTONES DE CONTACTO DIRECTO */}
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-3">
               <Link
                 href="/about"

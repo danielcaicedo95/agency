@@ -14,8 +14,8 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
       setTimeout(() => {
         setPhase('complete');
         onComplete();
-      }, 800);
-    }, 2800);
+      }, 600);
+    }, 1800);
     
     return () => clearTimeout(timer);
   }, [onComplete]);

@@ -110,7 +110,7 @@ export default function HomePage() {
             </motion.div>
           </div>
 
-          {/* STRIP DE MÉTRICAS - COMPACTO Y COMPACTADO EN MÓVIL */}
+          {/* STRIP DE MÉTRICAS - COMPACTO EN MÓVIL */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 max-w-4xl w-full">
             {t.hero.metrics.map((metric, idx) => (
               <motion.div
@@ -132,10 +132,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECCIÓN PERFIL / MARCA PERSONAL ("MI FOTO") */}
+      {/* SECCIÓN PERFIL / MARCA PERSONAL ("MI FOTO PNG CON FONDO WEB NEÓN") */}
       <section className="relative w-full py-16 px-4 sm:px-6 bg-slate-950 border-b border-purple-900/30 overflow-hidden">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-          {/* FOTO DE PERFIL CON MARCO NEÓN DE ALTA ESTÉTICA */}
+          {/* FOTO PNG SIN FONDO CON RETROILUMINACIÓN CIBERNÉTICA Y HALO NEÓN */}
           <motion.div
             className="md:col-span-5 flex justify-center"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -143,25 +143,34 @@ export default function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="relative group w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80">
+            <div className="relative group w-72 h-80 sm:w-80 sm:h-96 md:w-96 md:h-[420px]">
               {/* Resplandor neón animado de fondo */}
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-purple-600 via-cyan-400 to-fuchsia-500 blur-lg opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse" />
+              <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-purple-600 via-cyan-400 to-fuchsia-500 blur-xl opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse" />
               
-              {/* Contenedor de la foto */}
-              <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-cyan-400/50 bg-slate-900 shadow-2xl">
-                <Image
-                  src="/daniel_profile.png"
-                  alt="Daniel Caicedo — SEO & AI Automation Specialist"
-                  fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  priority
-                />
-                {/* Overlay de gradiente inferior */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
+              {/* Tarjeta contenedora con fondo nocturno temático de la web */}
+              <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-cyan-400/50 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-950/80 via-purple-950/90 to-slate-950 shadow-[0_0_40px_rgba(34,211,238,0.25)] flex flex-col justify-end">
                 
-                <div className="absolute bottom-3 left-3 right-3 p-2 bg-slate-950/80 backdrop-blur-md rounded-xl border border-purple-500/30 text-center">
-                  <span className="text-xs font-mono font-bold text-cyan-300">
-                    DANIEL CAICEDO
+                {/* Patrón de líneas cibernéticas de fondo */}
+                <div className="absolute inset-0 opacity-25 bg-[linear-gradient(to_right,#38bdf8_1px,transparent_1px),linear-gradient(to_bottom,#38bdf8_1px,transparent_1px)] bg-[size:2rem_2rem]" />
+                
+                {/* Halo brillante centrado detrás de la persona */}
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-cyan-400/20 rounded-full blur-2xl group-hover:bg-cyan-400/40 transition-all" />
+
+                {/* IMAGEN PNG SIN FONDO INTEGRADA EN EL AMBIENTE DE LA WEB */}
+                <div className="relative w-full h-full z-10 flex items-end justify-center pt-4">
+                  <Image
+                    src="/daniel-caicedo-seo.png"
+                    alt="Daniel Caicedo — SEO & AI Automation Specialist"
+                    fill
+                    className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]"
+                    priority
+                  />
+                </div>
+
+                {/* Insignia de nombre en la base */}
+                <div className="relative z-20 m-3 p-2 bg-slate-950/85 backdrop-blur-md rounded-xl border border-purple-500/40 text-center shadow-xl">
+                  <span className="text-xs font-mono font-bold text-cyan-300 tracking-widest">
+                    DANIEL CAICEDO • SEO & AI
                   </span>
                 </div>
               </div>

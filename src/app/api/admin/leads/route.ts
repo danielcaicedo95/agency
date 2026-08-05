@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readLeads, saveLeads, Lead } from '@/lib/leads';
 
+export const dynamic = 'force-dynamic';
+
 function verifyAdmin(request: NextRequest): boolean {
   const authHeader = request.headers.get('x-admin-password');
   return authHeader === process.env.ADMIN_PASSWORD;

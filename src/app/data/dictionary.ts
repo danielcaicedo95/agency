@@ -5,6 +5,7 @@ export const dictionary = {
     nav: {
       home: 'Inicio',
       work: 'Experiencia',
+      casos: 'Casos de Éxito',
       services: 'Servicios & Skills',
       about: 'Sobre Mí',
       contact: 'Contacto',
@@ -13,7 +14,7 @@ export const dictionary = {
       greeting: '¡Hola! Soy',
       name: 'Daniel Caicedo',
       role: 'Especialista en SEO, SEM y Automatización IA',
-      tagline: 'Impulsando crecimiento orgánico y conversión con estrategias basadas en datos, automatización inteligente y analítica avanzada.',
+      tagline: 'Más de 7 años impulsando crecimiento orgánico y conversión con estrategias basadas en datos, automatización inteligente y analítica avanzada.',
       summary: 'Tengo un historial comprobado incrementando el tráfico orgánico, configurando estrategias digitales escalables y convirtiendo leads en mercados altamente competitivos (como el nicho de Seguros Médicos en EE. UU. y E-commerce). Desde migraciones técnicas SEO hasta automatización de procesos mediante Inteligencia Artificial y Analítica Web (GA4, GTM, GSC).',
       ctaWork: 'Ver Experiencia',
       ctaContact: 'Contactar Ahora',
@@ -148,7 +149,7 @@ export const dictionary = {
     about: {
       title: 'Sobre Mí',
       subtitle: 'Formación profesional, certificaciones e idiomas',
-      bio: 'Apasionado por la tecnología, los algoritmos de búsqueda y la automatización inteligente. Mi enfoque une la capacidad técnica (desarrollo web, analítica de datos, Python/JS para SEO) con el pensamiento estratégico de marketing digital enfocado en ROI.',
+      bio: 'Con más de 7 años de experiencia, soy apasionado por la tecnología, los algoritmos de búsqueda y la automatización inteligente. Mi enfoque une la capacidad técnica (desarrollo web, analítica de datos, Python/JS para SEO, Next.js, FastAPI) con el pensamiento estratégico de marketing digital enfocado en ROI.',
       educationTitle: 'Educación & Certificaciones',
       education: [
         { title: 'Diplomatura en Programación', org: 'Universidad de Caldas - Facultad de Ingeniería' },
@@ -196,6 +197,7 @@ export const dictionary = {
     nav: {
       home: 'Home',
       work: 'Experience',
+      casos: 'Case Studies',
       services: 'Services & Skills',
       about: 'About Me',
       contact: 'Contact',
@@ -204,8 +206,8 @@ export const dictionary = {
       greeting: "Hello! I'm",
       name: 'Daniel Caicedo',
       role: 'SEO, SEM & AI Automation Specialist',
-      tagline: 'Driving organic growth and sales conversion with data-driven strategies, smart AI automation, and advanced web analytics.',
-      summary: 'Proven track record increasing organic traffic, configuring scalable digital strategies, and converting leads in highly competitive markets (such as US Health Insurance & E-commerce). Skilled in Technical SEO migrations, AI process automation, and web analytics (GA4, GTM, GSC).',
+      tagline: 'Over 7 years driving organic growth and sales conversion with data-driven strategies, smart AI automation, and advanced web analytics.',
+      summary: 'Over 7 years proven track record increasing organic traffic, configuring scalable digital strategies, and converting leads in highly competitive markets (such as US Health Insurance & E-commerce). Skilled in Technical SEO migrations, AI process automation, and web analytics (GA4, GTM, GSC).',
       ctaWork: 'View Experience',
       ctaContact: 'Contact Now',
       metrics: [
@@ -339,7 +341,7 @@ export const dictionary = {
     about: {
       title: 'About Me',
       subtitle: 'Professional background, certifications & languages',
-      bio: 'Passionate about web technologies, search algorithms, and intelligent automation. My approach combines strong technical capabilities (web development, data analytics, JS/Python for SEO) with ROI-driven digital marketing strategy.',
+      bio: 'With 7+ years of experience, I am passionate about web technologies, search algorithms, and intelligent automation. My approach combines strong technical capabilities (web development, data analytics, JS/Python/Next.js/FastAPI for SEO) with ROI-driven digital marketing strategy.',
       educationTitle: 'Education & Certifications',
       education: [
         { title: 'Diploma in Programming', org: 'Universidad de Caldas - School of Engineering' },

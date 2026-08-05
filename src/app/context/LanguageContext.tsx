@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { dictionary, Language } from '@/app/data/dictionary';
 
 interface LanguageContextType {
@@ -12,18 +13,35 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguageState] = useState<Language>('es');
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const isEnPath = pathname ? pathname === '/en' || pathname.startsWith('/en/') : false;
+  const initialLang: Language = isEnPath ? 'en' : 'es';
+
+  const [language, setLanguageState] = useState<Language>(initialLang);
 
   useEffect(() => {
-    const savedLang = localStorage.getItem('portfolio_lang') as Language;
-    if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
-      setLanguageState(savedLang);
-    }
-  }, []);
+    setLanguageState(initialLang);
+  }, [initialLang]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('portfolio_lang', lang);
+
+    if (!pathname) return;
+
+    if (lang === 'en') {
+      if (!pathname.startsWith('/en')) {
+        const targetPath = pathname === '/' ? '/en' : `/en${pathname}`;
+        router.push(targetPath);
+      }
+    } else {
+      if (pathname.startsWith('/en')) {
+        const targetPath = pathname === '/en' ? '/' : pathname.replace(/^\/en/, '');
+        router.push(targetPath || '/');
+      }
+    }
   };
 
   const t = dictionary[language];

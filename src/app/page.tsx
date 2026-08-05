@@ -7,6 +7,7 @@ import Navbar from '@/app/components/Navbar';
 import NavCard from '@/app/components/NavCard';
 import CityAnimation from '@/app/components/CityAnimation';
 import UndergroundGrid from '@/app/components/UndergroundGrid';
+import CasosExitoGSC from '@/app/components/work/CasosExitoGSC';
 import { useLanguage } from '@/app/context/LanguageContext';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -15,25 +16,32 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const { t, language } = useLanguage();
 
+  const prefix = language === 'en' ? '/en' : '';
+
   const cards = [
     {
       title: t.nav.work,
-      href: '/work',
+      href: `${prefix}/work`,
       description: t.work.subtitle,
     },
     {
+      title: t.nav.casos,
+      href: `${prefix}/casos-de-exito`,
+      description: language === 'es' ? 'Resultados reales documentados en GSC por sector.' : 'Real sector-level GSC growth results documented.',
+    },
+    {
       title: t.nav.services,
-      href: '/services',
+      href: `${prefix}/services`,
       description: t.skills.subtitle,
     },
     {
       title: t.nav.about,
-      href: '/about',
+      href: `${prefix}/about`,
       description: t.about.subtitle,
     },
     {
       title: t.nav.contact,
-      href: '/contact',
+      href: `${prefix}/contact`,
       description: t.contact.subtitle,
     },
   ];
@@ -96,13 +104,13 @@ export default function HomePage() {
               transition={{ delay: 0.5, duration: 0.6 }}
             >
               <Link
-                href="/work"
+                href={`${prefix}/work`}
                 className="px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-purple-600 to-cyan-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all"
               >
                 {t.hero.ctaWork} →
               </Link>
               <Link
-                href="/contact"
+                href={`${prefix}/contact`}
                 className="px-5 py-2.5 sm:px-6 sm:py-3 bg-slate-950/70 text-cyan-300 border border-cyan-400/40 text-xs sm:text-sm font-bold rounded-xl shadow-md hover:bg-slate-900 transition-all backdrop-blur-md"
               >
                 {t.hero.ctaContact}
@@ -260,8 +268,8 @@ export default function HomePage() {
 
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
               {language === 'es'
-                ? 'Con más de 6 años de trayectoria optimizando ecosistemas web corporativos e e-commerce (Shopify Plus, VTEX), combino la precisión del SEO Técnico con la potencia de la Automatización con IA y SEM en Google Ads para convertir tráfico orgánico en ingresos sostenibles.'
-                : 'With over 6 years of experience optimizing enterprise web ecosystems and e-commerce (Shopify Plus, VTEX), I combine Technical SEO precision with AI Automation and Google Ads SEM to turn organic traffic into sustainable revenue.'}
+                ? 'Con más de 7 años de trayectoria optimizando ecosistemas web corporativos e e-commerce (Shopify Plus, VTEX), combino la precisión del SEO Técnico con la potencia de la Automatización con IA y SEM en Google Ads para convertir tráfico orgánico en ingresos sostenibles.'
+                : 'With over 7 years of experience optimizing enterprise web ecosystems and e-commerce (Shopify Plus, VTEX), I combine Technical SEO precision with AI Automation and Google Ads SEM to turn organic traffic into sustainable revenue.'}
             </p>
 
             <div className="flex flex-wrap justify-center md:justify-start gap-2 pt-1">
@@ -277,7 +285,7 @@ export default function HomePage() {
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-3">
               <Link
-                href="/about"
+                href={`${prefix}/about`}
                 className="px-6 py-3 bg-purple-600 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg hover:bg-purple-700 transition-all"
               >
                 {language === 'es' ? 'Ver Trayectoria Completa' : 'View Full Experience'} →
@@ -292,6 +300,49 @@ export default function HomePage() {
               </a>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* SECCIÓN CASOS DE ÉXITO GSC EN HOME (ESTILO Y ALINEACIÓN HOMOGÉNEA) */}
+      <section className="relative w-full py-16 px-4 sm:px-6 bg-slate-950 border-b border-purple-900/30 overflow-hidden">
+        {/* TUBERÍA DE DATOS DE NEÓN DE CONTINUIDAD VISUAL */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <svg className="w-full h-full" viewBox="0 0 1200 400" preserveAspectRatio="none">
+            <motion.path
+              d="M 300,0 L 300,100 C 300,200 150,220 150,320 L 150,400"
+              fill="none"
+              stroke="#22d3ee"
+              strokeWidth="2"
+              strokeOpacity="0.4"
+              strokeDasharray="6 12"
+              animate={{ strokeDashoffset: [0, -72] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+            />
+            <motion.path
+              d="M 900,0 L 900,120 C 900,220 1050,240 1050,340 L 1050,400"
+              fill="none"
+              stroke="#e879f9"
+              strokeWidth="2"
+              strokeOpacity="0.4"
+              strokeDasharray="8 16"
+              animate={{ strokeDashoffset: [0, 96] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+            />
+          </svg>
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto space-y-8">
+          <CasosExitoGSC isCompact={true} />
+
+          <div className="flex justify-center pt-2">
+            <Link
+              href={`${prefix}/casos-de-exito`}
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-purple-600 via-cyan-600 to-cyan-500 text-white font-bold text-sm rounded-xl shadow-xl shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all border border-cyan-400/30"
+            >
+              <span>{language === 'es' ? 'Ver todos los Casos de Éxito completos' : 'View All Full Case Studies'}</span>
+              <span className="text-lg">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 

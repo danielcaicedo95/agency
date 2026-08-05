@@ -9,22 +9,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const prefix = language === 'en' ? '/en' : '';
+
   const links = [
-    { href: '/', label: t.nav.home },
-    { href: '/work', label: t.nav.work },
-    { href: '/services', label: t.nav.services },
-    { href: '/about', label: t.nav.about },
-    { href: '/contact', label: t.nav.contact },
+    { href: `${prefix}/`, label: t.nav.home },
+    { href: `${prefix}/work`, label: t.nav.work },
+    { href: `${prefix}/services`, label: t.nav.services },
+    { href: `${prefix}/about`, label: t.nav.about },
+    { href: `${prefix}/contact`, label: t.nav.contact },
   ];
+
+  // For active detection, strip /en from pathname for comparison
+  const normPath = pathname?.startsWith('/en') ? pathname.replace(/^\/en/, '') || '/' : pathname;
+
 
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-slate-950/85 border-b border-purple-500/20 shadow-2xl">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* LOGO 'DC' ORIGINAL EN FUENTE BUBBLE */}
-        <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+        <Link href={prefix + '/'} className="flex items-center gap-2 sm:gap-3 group">
           <span className="logo font-logo text-3xl sm:text-4xl font-black text-cyan-300 tracking-tighter drop-shadow-[0_4px_12px_rgba(34,211,238,0.5)] group-hover:scale-110 transition-transform">
             DC
           </span>
@@ -36,7 +42,8 @@ export default function Navbar() {
         {/* NAVEGACIÓN DESKTOP (PANTALLAS MEDIANAS Y GRANDES) */}
         <nav className="hidden md:flex items-center space-x-2">
           {links.map((link) => {
-            const isActive = pathname === link.href;
+            const normLink = link.href.replace(/^\/en/, '') || '/';
+            const isActive = normPath === normLink;
             return (
               <Link
                 key={link.href}
@@ -95,7 +102,8 @@ export default function Navbar() {
             className="md:hidden overflow-hidden bg-slate-950/95 backdrop-blur-2xl border-b border-purple-500/30 px-4 py-4 space-y-2 shadow-2xl"
           >
             {links.map((link) => {
-              const isActive = pathname === link.href;
+              const normLink = link.href.replace(/^\/en/, '') || '/';
+              const isActive = normPath === normLink;
               return (
                 <Link
                   key={link.href}

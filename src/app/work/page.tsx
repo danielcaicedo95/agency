@@ -1,7 +1,7 @@
 'use client';
 
 import Navbar from '@/app/components/Navbar';
-import VideoSection from '@/app/components/videosection/VideoSection';
+import CasosExitoGSC from '@/app/components/work/CasosExitoGSC';
 import { useLanguage } from '@/app/context/LanguageContext';
 import { motion } from 'framer-motion';
 
@@ -85,22 +85,8 @@ export default function WorkPage() {
           ))}
         </div>
 
-        {/* DESTACADO MULTIMEDIA / SHOWCASE */}
-        <div className="pt-12 space-y-6">
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">
-              Caso de Éxito & Video Demo
-            </h2>
-            <p className="text-xs text-slate-400 font-mono">ESTRATEGIA INTEGRAL SEO / SEM</p>
-          </div>
-          <div className="rounded-3xl overflow-hidden shadow-2xl border border-purple-500/30">
-            <VideoSection
-              videoSrc="/comercial1.mp4"
-              title="AionIGC — Lead Generation & Strategy"
-              description="Estrategia integral SEO/SEM para seguros de salud en EE. UU., logrando captar +3,000 leads cualificados."
-            />
-          </div>
-        </div>
+        {/* DESTACADO CASOS DE ÉXITO GSC */}
+        <CasosExitoGSC isCompact={false} />
       </main>
 
       <footer className="w-full py-6 text-center text-xs text-slate-500 font-mono border-t border-slate-900">

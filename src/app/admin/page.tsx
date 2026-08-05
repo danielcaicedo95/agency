@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SEOManager from '@/app/admin/SEOManager';
 
 interface Lead {
   id: string;
@@ -36,6 +37,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState<'leads' | 'seo'>('leads');
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [storedPassword, setStoredPassword] = useState('');
 
@@ -274,8 +276,38 @@ export default function AdminPage() {
               <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             </div>
             <div>
-              <h1 className="font-black text-white text-sm sm:text-base leading-tight">Lead Admin Panel</h1>
+              <h1 className="font-black text-white text-sm sm:text-base leading-tight">Admin Dashboard</h1>
               <p className="text-xs text-slate-500 font-mono">Daniel Caicedo</p>
+            </div>
+
+            {/* TAB NAVIGATOR */}
+            <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 p-1 rounded-xl ml-4">
+              <button
+                onClick={() => setActiveTab('leads')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  activeTab === 'leads'
+                    ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-md'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Leads
+              </button>
+              <button
+                onClick={() => setActiveTab('seo')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  activeTab === 'seo'
+                    ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-md'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                Metadatos & SEO
+              </button>
             </div>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
@@ -304,7 +336,11 @@ export default function AdminPage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6 relative z-10">
-        {/* ─── STATS GRID ─── */}
+        {activeTab === 'seo' ? (
+          <SEOManager adminPassword={storedPassword} />
+        ) : (
+          <>
+            {/* ─── STATS GRID ─── */}
         {stats && (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {[
@@ -583,8 +619,10 @@ export default function AdminPage() {
                 </motion.div>
               )}
             </AnimatePresence>
+            </div>
           </div>
-        </div>
+        </>
+        )}
       </main>
     </div>
   );

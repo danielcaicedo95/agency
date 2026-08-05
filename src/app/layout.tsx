@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { LanguageProvider } from '@/app/context/LanguageContext';
 import JsonLd from '@/app/components/JsonLd';
+import SEOMetadata from '@/app/components/SEOMetadata';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased selection:bg-cyan-500 selection:text-slate-950 bg-slate-950 text-slate-100">
         <LanguageProvider>
+          <SEOMetadata />
           <main className="min-h-screen">{children}</main>
         </LanguageProvider>
       </body>

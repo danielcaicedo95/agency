@@ -18,16 +18,12 @@ export default function HomePage() {
 
   const prefix = language === 'en' ? '/en' : '';
 
+  // Menú inferior: sólo Experiencia, Servicios, Sobre Mí, Contacto (Casos de Éxito ya está arriba)
   const cards = [
     {
       title: t.nav.work,
       href: `${prefix}/work`,
       description: t.work.subtitle,
-    },
-    {
-      title: t.nav.casos,
-      href: `${prefix}/casos-de-exito`,
-      description: language === 'es' ? 'Resultados reales documentados en GSC por sector.' : 'Real sector-level GSC growth results documented.',
     },
     {
       title: t.nav.services,
@@ -158,18 +154,16 @@ export default function HomePage() {
                 SEO SEWER
               </text>
               
-              {/* DETALLE DIVERTIDO: RATITA CIBERNÉTICA CON LUZ PARPADECIENTE EN LA ALCANTARILLA 🐀 */}
+              {/* ACCESORIO TECH: INSIGNIA NEÓN EN ALCANTARILLA */}
               <g transform="translate(24, 10)">
-                <ellipse cx="6" cy="6" rx="6" ry="4" fill="#64748b" />
-                <circle cx="10" cy="4" r="3" fill="#94a3b8" />
-                <circle cx="11" cy="3" r="1" fill="#ef4444" /> {/* Ojo neón rojo */}
-                <line x1="0" y1="6" x2="-6" y2="8" stroke="#64748b" strokeWidth="1" /> {/* Cola */}
-                <text x="14" y="2" fill="#fde047" fontSize="7" fontWeight="bold">🐀 ⚡</text>
+                <rect x="0" y="0" width="28" height="12" rx="3" fill="#0f172a" stroke="#38bdf8" strokeWidth="1" />
+                <circle cx="6" cy="6" r="2" fill="#22d3ee" />
+                <text x="11" y="9" fill="#38bdf8" fontSize="6" fontWeight="bold" fontFamily="monospace">DATA</text>
               </g>
             </g>
 
-            {/* TUBERÍAS DE DATOS NEÓN QUE DESCIENDEN DESDE LA ALCANTARILLA HASTA DETRÁS DE LA FOTO */}
-            {/* Tubería Cyan */}
+            {/* TUBERÍAS DE DATOS NEÓN QUE DESCIENDEN HASTA LA SECCIÓN SIGUIENTE (Y=600) */}
+            {/* Tubería Cyan (Sale en X=300 a Y=600) */}
             <motion.path
               d="M 600,20 C 500,80 320,120 260,220 C 220,290 260,380 300,500 L 300,600"
               fill="none" stroke="#22d3ee" strokeWidth="3" strokeOpacity="0.7"
@@ -181,7 +175,7 @@ export default function HomePage() {
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             />
 
-            {/* Tubería Púrpura/Magenta */}
+            {/* Tubería Magenta (Sale en X=420 a Y=600) */}
             <motion.path
               d="M 600,20 C 680,100 480,180 380,260 C 310,320 340,440 420,550 L 420,600"
               fill="none" stroke="#e879f9" strokeWidth="2.5" strokeOpacity="0.6"
@@ -191,6 +185,14 @@ export default function HomePage() {
               fill="none" stroke="#fde047" strokeWidth="1" strokeDasharray="6 18"
               animate={{ strokeDashoffset: [0, -100] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
+            />
+
+            {/* Tubería Central Púrpura (Sale en X=600 a Y=600) */}
+            <motion.path
+              d="M 600,20 L 600,600"
+              fill="none" stroke="#a855f7" strokeWidth="2" strokeOpacity="0.5" strokeDasharray="8 12"
+              animate={{ strokeDashoffset: [0, -80] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
             />
 
             {/* Tubería Secundaria de Entrada a la Tarjeta de Foto */}
@@ -222,7 +224,7 @@ export default function HomePage() {
 
               {/* CINTA ADHESIVA NEÓN EN LA ESQUINA */}
               <div className="absolute -top-3 left-4 bg-cyan-400 text-slate-950 font-black text-[10px] uppercase tracking-widest px-3 py-0.5 rounded-sm shadow-md -rotate-6 z-30 border border-slate-900">
-                YES, IT&apos;S ME! ✌️
+                YES, IT&apos;S ME!
               </div>
 
               {/* MARCO DE FOTO POP-UP INTERNO */}
@@ -242,7 +244,7 @@ export default function HomePage() {
 
               {/* PIE DE POLAROID MANUSCRITO / MANIFIESTO COOL */}
               <div className="text-center pt-1 font-mono font-bold text-xs text-slate-950 tracking-tight flex items-center justify-between px-1">
-                <span>DANIEL C. ⚡</span>
+                <span>DANIEL C.</span>
                 <span className="text-[10px] bg-yellow-300 px-1.5 py-0.5 rounded text-slate-950 font-black">
                   SEO & AI
                 </span>
@@ -276,9 +278,12 @@ export default function HomePage() {
               {['SEO Técnico', 'Google Ads SEM', 'IA & Prompting', 'GA4 & GTM', 'Shopify Plus', 'VTEX'].map((badge, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 bg-slate-900 text-cyan-300 text-xs font-mono font-bold rounded-lg border border-purple-500/30"
+                  className="inline-flex items-center gap-1 px-3 py-1 bg-slate-900 text-cyan-300 text-xs font-mono font-bold rounded-lg border border-purple-500/30"
                 >
-                  ✓ {badge}
+                  <svg className="w-3.5 h-3.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {badge}
                 </span>
               ))}
             </div>
@@ -303,31 +308,51 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECCIÓN CASOS DE ÉXITO GSC EN HOME (ESTILO Y ALINEACIÓN HOMOGÉNEA) */}
+      {/* SECCIÓN CASOS DE ÉXITO GSC EN HOME (CONEXIÓN PERFECTA DE TUBERÍAS) */}
       <section className="relative w-full py-16 px-4 sm:px-6 bg-slate-950 border-b border-purple-900/30 overflow-hidden">
-        {/* TUBERÍA DE DATOS DE NEÓN DE CONTINUIDAD VISUAL */}
+        {/* TUBERÍAS DE DATOS NEÓN DE CONTINUIDAD VISUAL DESDE SECCIÓN ANTERIOR HASTA UNDERGROUND GRID */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <svg className="w-full h-full" viewBox="0 0 1200 400" preserveAspectRatio="none">
+            {/* Cable Cian (Entra en X=300 de Y=0, Sale en X=150 a Y=400) */}
             <motion.path
               d="M 300,0 L 300,100 C 300,200 150,220 150,320 L 150,400"
               fill="none"
               stroke="#22d3ee"
-              strokeWidth="2"
-              strokeOpacity="0.4"
+              strokeWidth="2.5"
+              strokeOpacity="0.5"
               strokeDasharray="6 12"
               animate={{ strokeDashoffset: [0, -72] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
             />
+
+            {/* Cable Magenta (Entra en X=420 de Y=0, Sale en X=1050 a Y=400) */}
             <motion.path
-              d="M 900,0 L 900,120 C 900,220 1050,240 1050,340 L 1050,400"
+              d="M 420,0 L 420,100 C 420,180 1050,220 1050,320 L 1050,400"
               fill="none"
               stroke="#e879f9"
-              strokeWidth="2"
-              strokeOpacity="0.4"
+              strokeWidth="2.5"
+              strokeOpacity="0.5"
               strokeDasharray="8 16"
               animate={{ strokeDashoffset: [0, 96] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
             />
+
+            {/* Cable Púrpura Central (Entra en X=600 de Y=0, Sale en X=600 a Y=400) */}
+            <motion.path
+              d="M 600,0 L 600,400"
+              fill="none"
+              stroke="#a855f7"
+              strokeWidth="2"
+              strokeOpacity="0.4"
+              strokeDasharray="8 12"
+              animate={{ strokeDashoffset: [0, -80] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+            />
+
+            {/* Nodos de conexión en el borde inferior (Y=400) */}
+            <circle cx="150" cy="400" r="4" fill="#22d3ee" />
+            <circle cx="1050" cy="400" r="4" fill="#e879f9" />
+            <circle cx="600" cy="400" r="5" fill="#a855f7" />
           </svg>
         </div>
 

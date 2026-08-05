@@ -91,7 +91,10 @@ export default function ContactPage() {
               href="mailto:danielcaicedoco@gmail.com"
               className="block p-6 bg-slate-900/80 backdrop-blur-md rounded-3xl shadow-2xl border border-purple-500/20 hover:border-cyan-400/60 hover:scale-105 transition-all group"
             >
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
+              <div className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
                 {t.contact.email}
               </div>
               <div className="text-lg font-bold text-white mt-1 group-hover:text-cyan-300">
@@ -105,7 +108,10 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className="block p-6 bg-slate-900/80 backdrop-blur-md rounded-3xl shadow-2xl border border-purple-500/20 hover:border-cyan-400/60 hover:scale-105 transition-all group"
             >
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
+              <div className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
                 {t.contact.phone}
               </div>
               <div className="text-lg font-bold text-white mt-1 group-hover:text-cyan-300">
@@ -118,17 +124,23 @@ export default function ContactPage() {
                 href="https://www.linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 bg-gradient-to-r from-purple-600 to-cyan-600 text-white rounded-2xl font-bold text-center text-sm shadow-xl hover:scale-105 transition-transform"
+                className="p-4 bg-gradient-to-r from-purple-600 to-cyan-600 text-white rounded-2xl font-bold text-center text-sm shadow-xl hover:scale-105 transition-transform flex items-center justify-center gap-1.5"
               >
-                LinkedIn ↗
+                LinkedIn
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
               </a>
               <a
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 bg-slate-900 text-cyan-300 border border-cyan-500/30 rounded-2xl font-bold text-center text-sm shadow-xl hover:bg-slate-800 transition-colors"
+                className="p-4 bg-slate-900 text-cyan-300 border border-cyan-500/30 rounded-2xl font-bold text-center text-sm shadow-xl hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5"
               >
-                GitHub ↗
+                GitHub
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
               </a>
             </div>
 
@@ -158,7 +170,11 @@ export default function ContactPage() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                 >
-                  <div className="text-5xl">🎉</div>
+                  <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
                   <p className="font-black text-lg">{t.contact.successMsg}</p>
                   <p className="text-sm text-emerald-400/80">
                     {language === 'es'
@@ -288,7 +304,10 @@ export default function ContactPage() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                       >
-                        ⚠️ {error}
+                        <svg className="w-4 h-4 text-red-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        {error}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -296,7 +315,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all text-xs font-mono uppercase tracking-wider disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="w-full py-4 bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all text-xs font-mono uppercase tracking-wider disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
                   >
                     {loading ? (
                       <span className="flex items-center justify-center gap-2">
@@ -304,7 +323,12 @@ export default function ContactPage() {
                         {language === 'es' ? 'Enviando...' : 'Sending...'}
                       </span>
                     ) : (
-                      `⚡ ${t.contact.sendBtn}`
+                      <>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                        {t.contact.sendBtn}
+                      </>
                     )}
                   </button>
                 </motion.form>

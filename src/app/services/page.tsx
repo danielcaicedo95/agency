@@ -392,25 +392,25 @@ export default function ServicesPage() {
 
           {[
             {
-              label: '🤖 IA & Automatización',
+              label: 'IA & Automatización',
               tools: aiTools,
               border: 'border-purple-500/20',
               dot: 'bg-gradient-to-r from-purple-500 to-pink-400',
             },
             {
-              label: '📊 Analytics & SEO Tools',
+              label: 'Analytics & SEO Tools',
               tools: analyticsTools,
               border: 'border-orange-500/20',
               dot: 'bg-gradient-to-r from-orange-500 to-yellow-400',
             },
             {
-              label: '⚙️ Frameworks & Backend',
+              label: 'Frameworks & Backend',
               tools: devTools,
               border: 'border-cyan-500/20',
               dot: 'bg-gradient-to-r from-cyan-500 to-blue-400',
             },
             {
-              label: '🗂️ CMS & E-commerce',
+              label: 'CMS & E-commerce',
               tools: cmsTools,
               border: 'border-emerald-500/20',
               dot: 'bg-gradient-to-r from-emerald-500 to-cyan-400',

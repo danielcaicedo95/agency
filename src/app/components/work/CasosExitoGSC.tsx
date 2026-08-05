@@ -97,7 +97,12 @@ export default function CasosExitoGSC({ isCompact = false, showTitle = true }: C
                   <span className="text-purple-300 uppercase tracking-wider font-semibold">
                     Google Search Console ({activeCaso.period})
                   </span>
-                  <span className="hidden sm:inline">🔍 Clic para pantalla completa</span>
+                  <span className="hidden sm:flex items-center gap-1.5 text-slate-400">
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                    </svg>
+                    Clic para pantalla completa
+                  </span>
                 </div>
 
                 <div
@@ -172,9 +177,12 @@ export default function CasosExitoGSC({ isCompact = false, showTitle = true }: C
                     {activeCaso.strategies.map((st, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded-md bg-purple-950/80 text-cyan-300 border border-purple-500/30 text-[10px] sm:text-[11px] font-mono"
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-purple-950/80 text-cyan-300 border border-purple-500/30 text-[10px] sm:text-[11px] font-mono"
                       >
-                        ✓ {st}
+                        <svg className="w-2.5 h-2.5 text-cyan-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                        {st}
                       </span>
                     ))}
                   </div>
@@ -258,9 +266,11 @@ export default function CasosExitoGSC({ isCompact = false, showTitle = true }: C
             <div className="relative max-w-5xl w-full max-h-[90vh] overflow-hidden rounded-2xl border border-purple-500/40 bg-slate-900 p-2">
               <button
                 onClick={() => setModalImage(null)}
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 text-white flex items-center justify-center hover:bg-cyan-500 hover:text-slate-950 transition-colors text-sm sm:text-base"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center hover:bg-cyan-500 hover:text-slate-950 transition-colors"
               >
-                ✕
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
               <Image
                 src={modalImage}

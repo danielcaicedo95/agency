@@ -8,49 +8,57 @@ interface UndergroundGridProps {
 
 export default function UndergroundGrid({ children }: UndergroundGridProps) {
   return (
-    <div className="relative w-full bg-slate-950 text-white overflow-hidden pt-12 pb-20">
-      {/* SECCIÓN DE TRANSICIÓN SUPERIOR: MANHOLE / CONDUIT DE ENTRADA SUBTERRÁNEA */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-purple-950 via-slate-950/80 to-slate-950 pointer-events-none z-10" />
+    <div className="relative w-full bg-slate-950 text-white overflow-hidden pt-12 pb-20 border-t border-purple-900/30">
+      {/* SECCIÓN DE TRANSICIÓN SUPERIOR: GRADIENTE Y EMPALME DE TUBERÍAS */}
+      <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-purple-950/40 to-transparent pointer-events-none z-10" />
 
-      {/* LÍNEAS DE FIBRA ÓPTICA Y TUBERÍAS DE DATOS SUBTERRÁNEAS */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
+      {/* LÍNEAS DE FIBRA ÓPTICA Y TUBERÍAS DE DATOS SUBTERRÁNEAS CONTINUAS */}
+      <div className="absolute inset-0 pointer-events-none z-0">
         {/* Rejilla cibernética subterránea */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e1b4b_1px,transparent_1px),linear-gradient(to_bottom,#1e1b4b_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e1b4b_1px,transparent_1px),linear-gradient(to_bottom,#1e1b4b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20" />
 
-        {/* Tuberías/Cables de datos de neón que fluyen */}
-        <svg className="w-full h-full" preserveAspectRatio="none">
-          {/* Cable Cian */}
+        {/* Tuberías/Cables de datos de neón que fluyen conectadas con la sección superior (viewBox="0 0 1200 600") */}
+        <svg className="w-full h-full" viewBox="0 0 1200 600" preserveAspectRatio="none">
+          {/* Cable Cian (Conectado a X=150 desde la sección Casos de Éxito) */}
           <motion.path
-            d="M 100,0 L 100,200 Q 100,300 250,300 L 900,300 Q 1050,300 1050,500 L 1050,900"
+            d="M 150,0 L 150,160 Q 150,260 300,260 L 850,260 Q 1000,260 1000,400 L 1000,600"
             stroke="#22d3ee"
-            strokeWidth="2"
+            strokeWidth="2.5"
+            strokeOpacity="0.5"
             fill="none"
             strokeDasharray="8 8"
             animate={{ strokeDashoffset: [0, -64] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
           />
 
-          {/* Cable Magenta */}
+          {/* Cable Magenta (Conectado a X=1050 desde la sección Casos de Éxito) */}
           <motion.path
-            d="M 1100,0 L 1100,150 Q 1100,250 950,250 L 300,250 Q 150,250 150,450 L 150,900"
+            d="M 1050,0 L 1050,140 Q 1050,230 900,230 L 350,230 Q 200,230 200,380 L 200,600"
             stroke="#e879f9"
-            strokeWidth="2"
+            strokeWidth="2.5"
+            strokeOpacity="0.5"
             fill="none"
             strokeDasharray="10 10"
             animate={{ strokeDashoffset: [0, 80] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
           />
 
-          {/* Tubería de datos Púrpura central */}
+          {/* Tubería de datos Púrpura central (Conectada a X=600 desde el eje central) */}
           <motion.path
-            d="M 600,0 L 600,900"
+            d="M 600,0 L 600,600"
             stroke="#a855f7"
             strokeWidth="3"
+            strokeOpacity="0.4"
             fill="none"
             strokeDasharray="12 12"
             animate={{ strokeDashoffset: [0, -96] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
           />
+
+          {/* Nodos de empalme tech en el límite de la sección (Y=0) */}
+          <circle cx="150" cy="0" r="4" fill="#22d3ee" />
+          <circle cx="1050" cy="0" r="4" fill="#e879f9" />
+          <circle cx="600" cy="0" r="5" fill="#a855f7" />
         </svg>
       </div>
 

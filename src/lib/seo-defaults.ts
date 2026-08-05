@@ -15,7 +15,9 @@ export interface PageSEO {
   updatedAt?: string;
 }
 
-export const BASE_URL = 'https://danielcaicedo.com';
+// BASE_URL is intentionally empty — full URLs are assembled at runtime
+// from window.location.origin (client) or request headers (server)
+export const BASE_URL = '';
 
 // ─── KNOWN PAGES DISCOVERY LIST ─────────────────────────────────────────────
 export const KNOWN_PAGES = [
@@ -49,9 +51,9 @@ export function getDefaultSEO(targetPath: string): PageSEO {
   }
 
   const hreflangs: HreflangItem[] = [
-    { lang: 'es', url: `${BASE_URL}${esPath === '/' ? '' : esPath}` },
-    { lang: 'en', url: `${BASE_URL}${enPath}` },
-    { lang: 'x-default', url: `${BASE_URL}${esPath === '/' ? '' : esPath}` },
+    { lang: 'es', url: esPath === '/' ? '' : esPath },
+    { lang: 'en', url: enPath },
+    { lang: 'x-default', url: esPath === '/' ? '' : esPath },
   ];
 
   // Default title & description per route
@@ -105,18 +107,20 @@ export function getDefaultSEO(targetPath: string): PageSEO {
       break;
   }
 
+  // JSON-LD uses paths only; the actual domain is injected at runtime by SEOMetadata.tsx
+  const canonicalPath = normalizedPath === '/' ? '' : normalizedPath;
   const defaultJsonLd = JSON.stringify(
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       name: title,
       description: description,
-      url: canonical,
+      url: canonicalPath,
       author: {
         '@type': 'Person',
         name: 'Daniel Caicedo',
         jobTitle: 'Especialista SEO, SEM & Automatización IA',
-        url: BASE_URL,
+        url: '/',
       },
     },
     null,
@@ -128,7 +132,7 @@ export function getDefaultSEO(targetPath: string): PageSEO {
     title,
     description,
     robots: 'index, follow',
-    canonicalUrl: canonical,
+    canonicalUrl: normalizedPath === '/' ? '' : normalizedPath,
     hreflangs,
     jsonLd: defaultJsonLd,
     isCustom: false,

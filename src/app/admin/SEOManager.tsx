@@ -84,11 +84,11 @@ export default function SEOManager({ adminPassword }: SEOManagerProps) {
     title: '',
     description: '',
     robots: 'index, follow',
-    canonicalUrl: 'https://danielcaicedo.com',
+    canonicalUrl: '/',
     hreflangs: [
-      { lang: 'es', url: 'https://danielcaicedo.com' },
-      { lang: 'en', url: 'https://danielcaicedo.com/en' },
-      { lang: 'x-default', url: 'https://danielcaicedo.com' },
+      { lang: 'es', url: '/' },
+      { lang: 'en', url: '/en' },
+      { lang: 'x-default', url: '/' },
     ],
     jsonLd: '',
   });
@@ -128,7 +128,7 @@ export default function SEOManager({ adminPassword }: SEOManagerProps) {
     }
   };
 
-  // Auto generate Hreflangs for form
+  // Auto generate Hreflangs for form (uses current domain)
   const handleAutoHreflangs = () => {
     const currentPath = form.path || '/';
     const isEn = currentPath.startsWith('/en');
@@ -141,11 +141,12 @@ export default function SEOManager({ adminPassword }: SEOManagerProps) {
       enPath = currentPath === '/' ? '/en' : `/en${currentPath}`;
     }
 
-    const baseUrl = 'https://danielcaicedo.com';
+    // Use detected domain if available, otherwise store as paths only
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
     const generated: HreflangItem[] = [
-      { lang: 'es', url: `${baseUrl}${esPath === '/' ? '' : esPath}` },
-      { lang: 'en', url: `${baseUrl}${enPath}` },
-      { lang: 'x-default', url: `${baseUrl}${esPath === '/' ? '' : esPath}` },
+      { lang: 'es', url: origin ? `${origin}${esPath === '/' ? '' : esPath}` : (esPath === '/' ? '/' : esPath) },
+      { lang: 'en', url: origin ? `${origin}${enPath}` : enPath },
+      { lang: 'x-default', url: origin ? `${origin}${esPath === '/' ? '' : esPath}` : (esPath === '/' ? '/' : esPath) },
     ];
 
     setForm({ ...form, hreflangs: generated });
@@ -263,23 +264,27 @@ export default function SEOManager({ adminPassword }: SEOManagerProps) {
     let cleanPath = newPathInput.trim();
     if (!cleanPath.startsWith('/')) cleanPath = `/${cleanPath}`;
 
+    // Use detected domain if available, otherwise store paths only
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    const enPath = `/en${cleanPath}`;
+
     const newPageSeo: PageSEO = {
       path: cleanPath,
-      title: `Página ${cleanPath} | Daniel Caicedo`,
+      title: `Página ${cleanPath}`,
       description: `Descripción para la página ${cleanPath}.`,
       robots: 'index, follow',
-      canonicalUrl: `https://danielcaicedo.com${cleanPath}`,
+      canonicalUrl: origin ? `${origin}${cleanPath}` : cleanPath,
       hreflangs: [
-        { lang: 'es', url: `https://danielcaicedo.com${cleanPath}` },
-        { lang: 'en', url: `https://danielcaicedo.com/en${cleanPath}` },
-        { lang: 'x-default', url: `https://danielcaicedo.com${cleanPath}` },
+        { lang: 'es', url: origin ? `${origin}${cleanPath}` : cleanPath },
+        { lang: 'en', url: origin ? `${origin}${enPath}` : enPath },
+        { lang: 'x-default', url: origin ? `${origin}${cleanPath}` : cleanPath },
       ],
       jsonLd: JSON.stringify(
         {
           '@context': 'https://schema.org',
           '@type': 'WebPage',
           name: `Página ${cleanPath}`,
-          url: `https://danielcaicedo.com${cleanPath}`,
+          url: origin ? `${origin}${cleanPath}` : cleanPath,
         },
         null,
         2

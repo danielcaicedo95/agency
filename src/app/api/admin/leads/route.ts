@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readLeads, saveLeads, Lead } from '@/app/api/leads/route';
+import { readLeads, saveLeads, Lead } from '@/lib/leads';
 
 function verifyAdmin(request: NextRequest): boolean {
   const authHeader = request.headers.get('x-admin-password');

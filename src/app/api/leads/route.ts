@@ -1,64 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import fs from 'fs';
-import path from 'path';
+import { saveLead, Lead } from '@/lib/leads';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-export interface Lead {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  message: string;
-  service?: string;
-  createdAt: string;
-  contacted: boolean;
-  source: string;
-}
-
-/**
- * Ruta del archivo de leads.
- * - En Vercel (producción serverless) usamos /tmp que persiste durante la vida
- *   de la función lambda (no entre deploys, pero sí entre requests).
- * - En desarrollo usamos /data/leads.json que sí persiste.
- */
-function getLeadsFilePath() {
-  const isVercel = process.env.VERCEL === '1';
-  if (isVercel) {
-    return path.join('/tmp', 'leads.json');
-  }
-  return path.join(process.cwd(), 'data', 'leads.json');
-}
-
-export function readLeads(): Lead[] {
-  try {
-    const filePath = getLeadsFilePath();
-    if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, '[]', 'utf-8');
-      return [];
-    }
-    const content = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(content);
-  } catch {
-    return [];
-  }
-}
-
-export function saveLeads(leads: Lead[]): void {
-  try {
-    fs.writeFileSync(getLeadsFilePath(), JSON.stringify(leads, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error guardando leads:', err);
-  }
-}
-
-function saveLead(lead: Lead): void {
-  const leads = readLeads();
-  leads.unshift(lead);
-  saveLeads(leads);
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -99,8 +43,6 @@ export async function POST(request: NextRequest) {
     saveLead(lead);
 
     // Enviar email de notificación
-    // NOTA: onboarding@resend.dev funciona siempre para tu propio email (sin verificar dominio)
-    // Para enviar desde tu dominio, verifica danielcaicedo.co en resend.com > Domains
     const leadsEmail = process.env.LEADS_EMAIL || 'danielcaicedoco@gmail.com';
 
     await resend.emails.send({
